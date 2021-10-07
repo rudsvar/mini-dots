@@ -120,5 +120,13 @@ vim.cmd [[
     nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 
     " Quick-fix
-    nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>"
+    nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+
+    augroup AutoFormat
+        au!
+        au BufWritePre * :lua vim.lsp.buf.formatting_sync()
+    augroup END
+
+    nnoremap <silent> <C-s> :w<CR>
+    inoremap <silent> <C-s> <ESC>:w<CR>
 ]]
