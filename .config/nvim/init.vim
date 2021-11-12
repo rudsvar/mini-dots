@@ -12,14 +12,14 @@ set nobackup
 set number
 set signcolumn=yes
 
-set foldmethod=syntax
+set foldmethod=manual
 
 " Autocommands
 set viewoptions=folds,cursor
 augroup AutoView
     au!
-    au BufWinLeave *.* mkview!
-    au BufWinEnter *.* silent loadview
+    au BufWinLeave *.* mkview
+    au BufWinEnter *.* silent! loadview
 augroup END
 
 " Colors
