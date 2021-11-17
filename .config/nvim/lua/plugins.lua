@@ -24,6 +24,7 @@ require('packer').startup(function()
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-eunuch'
     use 'tpope/vim-sensible'
+    use 'tpope/vim-sleuth'
     use 'simrat39/rust-tools.nvim'
     use 'vim-scripts/auto-pairs-gentle'
 
