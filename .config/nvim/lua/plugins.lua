@@ -10,7 +10,7 @@ end
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
-    use 'kabouzeid/nvim-lspinstall'
+    use 'williamboman/nvim-lsp-installer'
 
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -65,30 +65,34 @@ cmp.setup({
     }
 })
 
--- lspinstall
-require'lspinstall'.setup() -- important
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+})
 
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{
+-- nvim-lsp-installer
+local lsp_installer = require("nvim-lsp-installer")
+
+lsp_installer.on_server_ready(function(server)
+    local opts = {
         on_attach=on_attach,
         capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-        settings = {
+    }
+
+    if server.name == "rust-analyzer" then
+        opts.settings = {
             ["rust-analyzer"] = {
                 checkOnSave = {
                     command = "clippy"
                 }
             }
         }
-    }
-end
+    end
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-})
+    server:setup(opts)
+end)
 
 vim.cmd [[
     nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
