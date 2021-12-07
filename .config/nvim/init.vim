@@ -12,7 +12,8 @@ set nobackup
 set number
 set signcolumn=yes
 
-set foldmethod=manual
+set nofoldenable
+set foldmethod=syntax
 
 " Autocommands
 set viewoptions=folds,cursor
