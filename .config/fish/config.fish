@@ -1,5 +1,3 @@
-cd $HOME
-
 alias conf="git --git-dir=$HOME/git/mini-dots.git --work-tree=$HOME"
 
 set -x EDITOR nvim
