@@ -31,4 +31,4 @@ set termguicolors
 colorscheme onedark
 
 hi Normal guibg=none
-hi NormalFloat guibg=#171717
+hi NormalFloat guibg=#212121
