@@ -32,3 +32,4 @@ colorscheme onedark
 
 hi Normal guibg=none
 hi NormalFloat guibg=#212121
+hi StatusLine guibg=none
