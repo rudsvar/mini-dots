@@ -38,10 +38,18 @@ require('packer').startup(function()
         requires = 'kyazdani42/nvim-web-devicons',
         config = function() require'nvim-tree'.setup {} end
     }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true
+    }
+}
 end)
 
 -- TODO: Move to config
 require'nvim-tree'.setup {}
+require'lualine'.setup {
+    options = { theme = 'codedark' }
+}
 
 -- On attach for language servers
 local on_attach = function(client, bufnr)
@@ -133,10 +141,10 @@ vim.cmd [[
     nnoremap <silent> <F2>  <cmd>lua vim.lsp.buf.rename()<CR>
     nnoremap <silent> g<space>  <cmd>lua vim.lsp.buf.formatting()<CR>
 
-    " augroup AutoFormat
-    "     au!
-    "     au BufWritePre * :lua vim.lsp.buf.formatting_sync()
-    " augroup END
+    augroup AutoFormat
+        au!
+        au BufWritePre * :lua vim.lsp.buf.formatting_sync()
+    augroup END
 
     nnoremap <silent> <C-s> :w<CR>
     inoremap <silent> <C-s> <ESC>:w<CR>
