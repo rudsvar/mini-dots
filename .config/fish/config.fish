@@ -15,3 +15,6 @@ end
 if test -e todo.md
     cat todo.md
 end
+
+alias cx 'cd (fd . --type d | fzf)'
+alias ex 'fd . --type f | fzf | xargs -r -I {} $EDITOR "{}"'
