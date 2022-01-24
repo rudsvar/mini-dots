@@ -25,7 +25,6 @@ require('packer').startup(function()
     use 'tpope/vim-eunuch'
     use 'tpope/vim-sensible'
     use 'tpope/vim-sleuth'
-    use 'simrat39/rust-tools.nvim'
     use 'vim-scripts/auto-pairs-gentle'
 
     use 'nvim-lua/popup.nvim'
@@ -150,6 +149,6 @@ vim.cmd [[
 
 -- Keybinds
 vim.cmd('nnoremap <C-p> :Telescope git_files<CR>')
-vim.cmd('nnoremap <C-g> :Telescope live_grep<CR>')
+vim.cmd('nnoremap <C-f> :Telescope live_grep<CR>')
 vim.cmd('noremap <C-_> :Commentary<CR>')
 

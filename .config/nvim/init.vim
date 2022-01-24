@@ -11,7 +11,7 @@ set undofile
 set noswapfile
 set nobackup
 
-set nonumber
+set number
 set signcolumn=no
 
 set nofoldenable
