@@ -1,4 +1,4 @@
-alias conf="git --git-dir=$HOME/git/mini-dots.git --work-tree=$HOME"
+alias conf="git --git-dir=$HOME/.cfg --work-tree=$HOME"
 
 set -x EDITOR nvim
 set -x VISUAL $EDITOR 
