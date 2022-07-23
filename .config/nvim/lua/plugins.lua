@@ -75,6 +75,20 @@ cmp.setup({
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-n>'] = function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            else
+                fallback()
+            end
+        end,
+        ['<C-p>'] = function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                fallback()
+            end
+        end
     },
     sources = {
         { name = 'nvim_lsp' },
