@@ -50,6 +50,11 @@ require'nvim-tree'.setup {}
 require'lualine'.setup {
     options = { theme = 'codedark' }
 }
+require('telescope').setup{
+	defaults = {
+		path_display = {"truncate"}
+	}
+}
 
 -- On attach for language servers
 local on_attach = function(client, bufnr)
