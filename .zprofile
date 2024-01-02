@@ -3,5 +3,6 @@
 [ -f "/opt/homebrew/bin/brew" ] && eval $(/opt/homebrew/bin/brew shellenv)
 
 PATH=$PATH:"$HOME/.ghcup/bin"
+PATH=$PATH:"$HOME/go/bin"
 
 exec fish

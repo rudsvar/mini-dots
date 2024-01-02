@@ -17,5 +17,13 @@ if test -e todo.md
     cat todo.md
 end
 
+if command -sq et
+    alias tree et
+end
+
+if command -sq exa
+    alias ls exa
+end
+
 alias cx 'cd (fd . --type d | fzf --height 50% --reverse)'
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
