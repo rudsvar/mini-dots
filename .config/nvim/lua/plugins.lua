@@ -101,6 +101,19 @@ lsp_installer.on_server_ready(function(server)
         }
     end
 
+    if server.name == "sumneko_lua" then
+        opts.settings = {
+            Lua = {
+                diagnostics = {
+                    globals = {"vim"}
+                },
+                workspace = {
+                    library = vim.api.nvim_get_runtime_file("", true)
+                }
+            }
+        }
+    end
+
     server:setup(opts)
 end)
 
@@ -118,11 +131,12 @@ vim.cmd [[
     " Quick-fix
     nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
     nnoremap <silent> <F2>  <cmd>lua vim.lsp.buf.rename()<CR>
+    nnoremap <silent> g<space>  <cmd>lua vim.lsp.buf.formatting()<CR>
 
-    augroup AutoFormat
-        au!
-        au BufWritePre * :lua vim.lsp.buf.formatting_sync()
-    augroup END
+    " augroup AutoFormat
+    "     au!
+    "     au BufWritePre * :lua vim.lsp.buf.formatting_sync()
+    " augroup END
 
     nnoremap <silent> <C-s> :w<CR>
     inoremap <silent> <C-s> <ESC>:w<CR>
