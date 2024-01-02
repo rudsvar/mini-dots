@@ -25,7 +25,10 @@ require('packer').startup(function()
     use 'tpope/vim-eunuch'
     use 'tpope/vim-sensible'
     use 'tpope/vim-sleuth'
-    use 'vim-scripts/auto-pairs-gentle'
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
