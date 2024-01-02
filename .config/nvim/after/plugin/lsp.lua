@@ -2,15 +2,10 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-    'rust_analyzer',
-    'jdtls',
-    'lua_ls',
-    'clangd'
-})
+lsp.ensure_installed({})
 
 -- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
