@@ -1,58 +1,67 @@
 -- Packer
-vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
 -- Plugins
-require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
-
+require('lazy').setup({
     -- Utilities
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-unimpaired'
-    use 'tpope/vim-eunuch'
-    use 'tpope/vim-sleuth'
-    use 'tpope/vim-repeat'
-    use {
+    'tpope/vim-commentary',
+    'tpope/vim-surround',
+    'tpope/vim-fugitive',
+    'tpope/vim-unimpaired',
+    'tpope/vim-eunuch',
+    'tpope/vim-sleuth',
+    'tpope/vim-repeat',
+    {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
-    }
-    use 'airblade/vim-gitgutter'
+    },
+    'airblade/vim-gitgutter',
 
     -- Search
-    use {
+    {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        requires = { 'nvim-lua/plenary.nvim' },
-    }
-    use {
+        dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    {
         "folke/trouble.nvim",
-        requires = { "nvim-tree/nvim-web-devicons", opt = true },
+        dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
         config = function()
             require("trouble").setup({
                 icons = false,
             })
         end
-    }
+    },
 
     -- Colorscheme
-    use { 'navarasu/onedark.nvim' }
-    use {
+    { 'navarasu/onedark.nvim' },
+    {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
         config = function()
             require('lualine').setup({})
         end
-    }
+    },
 
     -- Treesitter
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-treesitter/playground'
+    { 'nvim-treesitter/nvim-treesitter', cmd = 'TSUpdate' },
+    'nvim-treesitter/playground',
 
     -- Lsp
-    use {
+    {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
-        requires = {
+        dependencies = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' },             -- Required
             { 'williamboman/mason.nvim' },           -- Optional
@@ -70,8 +79,8 @@ require('packer').startup(function(use)
             { 'L3MON4D3/LuaSnip' },             -- Required
             { 'rafamadriz/friendly-snippets' }, -- Optional
         }
-    }
-    use {
+    },
+    {
         'williamboman/mason.nvim',
         config = function()
             require("mason").setup({
@@ -80,12 +89,12 @@ require('packer').startup(function(use)
                 }
             })
         end
-    }
-    use {
+    },
+    {
         'github/copilot.vim',
-        setup = function()
+        init = function()
             vim.g.copilot_no_tab_map = true
             vim.api.nvim_set_keymap("i", "<S-Tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
         end
     }
-end)
+})
