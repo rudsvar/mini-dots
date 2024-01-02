@@ -11,6 +11,7 @@ require('packer').startup(function(use)
     use 'tpope/vim-fugitive'
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-eunuch'
+    use 'tpope/vim-sleuth'
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
