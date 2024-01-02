@@ -4,6 +4,7 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.cmd([[
     nnoremap <silent> <C-s> :w<CR>
     inoremap <silent> <C-s> <ESC>:w<CR>
+    nnoremap <silent> <C-q> :bdelete<CR>
 ]])
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
