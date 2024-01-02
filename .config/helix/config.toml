@@ -17,6 +17,3 @@ select = "underline"
 
 [editor.file-picker]
 hidden = true
-
-[editor.indent-guides]
-render = true
