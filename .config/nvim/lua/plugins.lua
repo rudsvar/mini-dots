@@ -44,6 +44,11 @@ require('packer').startup(function()
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use 'arkav/lualine-lsp-progress'
+
+    use 'simrat39/rust-tools.nvim'
+
+    -- Debugging
+    use 'mfussenegger/nvim-dap'
 end)
 
 -- TODO: Move to config
@@ -75,6 +80,19 @@ end
 -- nvim-cmp
 local cmp = require 'cmp'
 
+local if_visible = function(f)
+    return function(fallback)
+        if cmp.visible() then
+            f()
+        else
+            fallback()
+        end
+    end
+end
+
+local select_next_item = if_visible(cmp.select_next_item)
+local select_prev_item = if_visible(cmp.select_prev_item)
+
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -88,20 +106,10 @@ cmp.setup({
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-        ['<C-n>'] = function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            else
-                fallback()
-            end
-        end,
-        ['<C-p>'] = function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            else
-                fallback()
-            end
-        end
+        ['<C-n>'] = select_next_item,
+        ['<down>'] = select_next_item,
+        ['<C-p>'] = select_prev_item,
+        ['<up>'] = select_prev_item
     },
     sources = {
         { name = 'nvim_lsp' },
@@ -119,38 +127,36 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 
 -- nvim-lsp-installer
 local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.setup({
+    ensure_installed = { "rust_analyzer", "sumneko_lua", "jdtls" }
+})
 
-lsp_installer.on_server_ready(function(server)
-    local opts = {
-        on_attach = on_attach,
-        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+-- Lsp config
+local lspconfig = require("lspconfig")
+
+lspconfig.sumneko_lua.setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim", "use", "foo" }
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true)
+            }
+        }
     }
+}
 
-    if server.name == "rust-analyzer" then
-        opts.settings = {
-            ["rust-analyzer"] = {
-                checkOnSave = {
-                    command = "clippy"
-                }
-            }
-        }
-    end
-
-    if server.name == "sumneko_lua" then
-        opts.settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { "vim", "use" }
-                },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file("", true)
-                }
-            }
-        }
-    end
-
-    server:setup(opts)
-end)
+-- lspconfig.rust_analyzer.setup {
+--     settings = {
+--         ["rust-analyzer"] = {
+--             checkOnSave = {
+--                 command = "clippy"
+--             }
+--         }
+--     }
+-- }
+require("rust-tools").setup {}
 
 vim.cmd [[
     nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
