@@ -4,7 +4,7 @@ theme = "custom"
 mouse = false
 true-color = true
 color-modes = true
-idle-timeout = 200
+idle-timeout = 0
 completion-trigger-len = 1
 
 [editor.lsp]
