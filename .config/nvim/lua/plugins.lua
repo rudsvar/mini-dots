@@ -11,7 +11,6 @@ require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
-    use 'ray-x/lsp_signature.nvim'
 
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -53,7 +52,6 @@ require'lualine'.setup {
 
 -- On attach for language servers
 local on_attach = function(client, bufnr)
-    require "lsp_signature".on_attach()
     vim.o.completeopt = 'menu,menuone,noselect'
     vim.o.shortmess = vim.o.shortmess .. 'c'
     vim.o.updatetime = 10
