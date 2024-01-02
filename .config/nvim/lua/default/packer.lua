@@ -48,6 +48,7 @@ require('packer').startup(function(use)
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use 'tpope/vim-commentary'
+    use 'tpope/vim-surround'
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
