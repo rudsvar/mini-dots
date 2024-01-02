@@ -147,16 +147,10 @@ lspconfig.sumneko_lua.setup {
     }
 }
 
--- lspconfig.rust_analyzer.setup {
---     settings = {
---         ["rust-analyzer"] = {
---             checkOnSave = {
---                 command = "clippy"
---             }
---         }
---     }
--- }
-require("rust-tools").setup {}
+local rust_tools = require("rust-tools");
+rust_tools.setup {};
+rust_tools.inlay_hints.enable();
+
 
 vim.cmd [[
     nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
