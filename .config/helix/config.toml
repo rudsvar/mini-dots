@@ -17,3 +17,17 @@ select = "underline"
 
 [editor.file-picker]
 hidden = true
+
+[keys.normal]
+"G" = "goto_last_line"
+"0" = "goto_line_start"
+"^" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+"C-s" = ":w"
+"C" = [ "goto_first_nonwhitespace", "select_mode", "goto_line_end", "change_selection" ]
+"Y" = [ "extend_to_line_bounds", "yank" ]
+"D" = [ "extend_to_line_bounds", "delete_selection"]
+"C-_" = [ "toggle_comments" ]
+
+[keys.insert]
+"C-s" = [ ":w", "normal_mode" ]
