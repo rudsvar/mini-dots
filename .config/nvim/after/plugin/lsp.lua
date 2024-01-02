@@ -48,6 +48,8 @@ lsp.set_preferences({
     }
 })
 
+lsp.setup()
+
 vim.diagnostic.config({
     virtual_text = true,
     signs = true,
@@ -63,5 +65,3 @@ vim.diagnostic.config({
         prefix = '',
     },
 })
-
-lsp.setup()

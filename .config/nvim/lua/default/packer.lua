@@ -16,15 +16,6 @@ require('packer').startup(function(use)
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', opt = true,
-        },
-        config = function()
-            require("nvim-tree").setup()
-        end
-    }
 
     -- Search
     use {
@@ -42,17 +33,7 @@ require('packer').startup(function(use)
     }
 
     -- Colorscheme
-    use({
-        'navarasu/onedark.nvim',
-        config = function()
-            vim.cmd("colorscheme onedark")
-            vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-            vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
-            vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
-            vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-        end
-    })
+    use { 'navarasu/onedark.nvim' }
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
