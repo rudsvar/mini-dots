@@ -16,5 +16,5 @@ if test -e todo.md
     cat todo.md
 end
 
-alias cx 'cd (fd . --type d | fzf)'
-alias ex 'fd . --type f | fzf | xargs -r -I {} $EDITOR "{}"'
+alias cx 'cd (fd . --type d | fzf --height 50% --reverse)'
+alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
