@@ -136,7 +136,7 @@ lsp_installer.setup({
 -- Lsp config
 local lspconfig = require("lspconfig")
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
     settings = {
         Lua = {
             diagnostics = {
@@ -151,7 +151,7 @@ lspconfig.sumneko_lua.setup {
 
 local rust_tools = require("rust-tools");
 rust_tools.setup {};
-rust_tools.inlay_hints.enable();
+-- rust_tools.inlay_hints.enable();
 
 
 vim.cmd [[
