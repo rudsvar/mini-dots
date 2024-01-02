@@ -1,4 +1,6 @@
-lua require 'plugins'
+if !exists('g:vscode')
+    lua require 'plugins'
+endif
 
 set tabstop=4
 set softtabstop=4
@@ -30,10 +32,3 @@ colorscheme onedark
 
 hi Normal guibg=none
 hi NormalFloat guibg=#171717
-
-" Use the home row
-nnoremap h <NOP>
-nnoremap j h
-nnoremap k j
-nnoremap l k
-nnoremap ; l

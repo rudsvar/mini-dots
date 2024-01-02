@@ -10,3 +10,7 @@ and not set -q TMUX
 and command -sq tmux
     exec tmux
 end
+
+if test -e todo.md
+    cat todo.md
+end
