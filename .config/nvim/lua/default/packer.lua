@@ -28,11 +28,16 @@ require('packer').startup(function(use)
     -- Search
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        requires = { { 'nvim-lua/plenary.nvim' } },
+        requires = { 'nvim-lua/plenary.nvim' },
     }
     use {
         "folke/trouble.nvim",
-        requires = { "nvim-tree/nvim-web-devicons", opt = true }
+        requires = { "nvim-tree/nvim-web-devicons", opt = true },
+        config = function()
+            require("trouble").setup({
+                icons = false,
+            })
+        end
     }
 
     -- Colorscheme
