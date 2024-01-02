@@ -1,8 +1,8 @@
 -- Bootstrap packer
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd 'packadd packer.nvim'
 end
 
@@ -37,23 +37,32 @@ require('packer').startup(function()
     use {
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require'nvim-tree'.setup {} end
+        config = function() require 'nvim-tree'.setup {} end
     }
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+    use 'arkav/lualine-lsp-progress'
 end)
 
 -- TODO: Move to config
-require'nvim-tree'.setup {}
-require'lualine'.setup {
-    options = { theme = 'codedark' }
+require 'nvim-tree'.setup {}
+require('lualine').setup {
+    options = { theme = 'codedark' },
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { { 'filename', path = 1 }, 'lsp_progress' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
+    },
 }
-require('telescope').setup{
-	defaults = {
-		path_display = {"truncate"}
-	}
+require('telescope').setup {
+    defaults = {
+        path_display = { "truncate" }
+    }
 }
 
 -- On attach for language servers
@@ -64,7 +73,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- nvim-cmp
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 cmp.setup({
     snippet = {
@@ -96,8 +105,8 @@ cmp.setup({
     },
     sources = {
         { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'buffer' },
+        -- { name = 'vsnip' },
+        -- { name = 'buffer' },
     }
 })
 
@@ -113,7 +122,7 @@ local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.on_server_ready(function(server)
     local opts = {
-        on_attach=on_attach,
+        on_attach = on_attach,
         capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     }
 
@@ -131,7 +140,7 @@ lsp_installer.on_server_ready(function(server)
         opts.settings = {
             Lua = {
                 diagnostics = {
-                    globals = {"vim", "use"}
+                    globals = { "vim", "use" }
                 },
                 workspace = {
                     library = vim.api.nvim_get_runtime_file("", true)
@@ -161,7 +170,7 @@ vim.cmd [[
 
     augroup AutoFormat
         au!
-        au BufWritePre * :lua vim.lsp.buf.formatting_sync()
+        au BufWritePre * :lua vim.lsp.buf.format()
     augroup END
 
     nnoremap <silent> <C-s> :w<CR>
@@ -172,4 +181,3 @@ vim.cmd [[
 vim.cmd('nnoremap <C-p> :Telescope git_files<CR>')
 vim.cmd('nnoremap <C-f> :Telescope live_grep<CR>')
 vim.cmd('noremap <C-_> :Commentary<CR>')
-
