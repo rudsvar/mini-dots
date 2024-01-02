@@ -106,5 +106,33 @@ require('lazy').setup({
             vim.g.copilot_no_tab_map = true
             vim.api.nvim_set_keymap("i", "<S-Tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
         end
+    },
+
+    {
+        -- Database UI. Remember to add connections to local .vimrc, like this.
+        --
+        -- let g:dbs = {
+        -- \ 'dev': 'postgres://postgres:password@localhost:5432/axum-demo',
+        -- \ }
+        --
+        'kristijanhusak/vim-dadbod-ui',
+        dependencies = {
+            { 'tpope/vim-dadbod', lazy = true },
+            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+        },
+        cmd = {
+            'DBUI',
+            'DBUIToggle',
+            'DBUIAddConnection',
+            'DBUIFindBuffer',
+        },
+        init = function()
+            -- Your DBUI configuration
+            vim.g.db_ui_use_nerd_fonts = 1
+            vim.g.db_ui_auto_execute_table_helpers = 1
+            vim.cmd [[
+                autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+            ]]
+        end,
     }
 })

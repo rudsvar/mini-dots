@@ -25,7 +25,9 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.o.foldmethod = 'expr'                     -- Enable capability to customise Neovim's fold method
+vim.o.foldmethod = 'expr' -- Enable capability to customise Neovim's fold method
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()' -- Use Treesitter's built-in folding method
-vim.o.foldnestmax = 10                        -- Fold's won't be applied to nesting deeper than 10 levels
+vim.o.foldnestmax = 10 -- Fold's won't be applied to nesting deeper than 10 levels
 vim.o.foldlevel = 99
+
+vim.o.exrc = true
