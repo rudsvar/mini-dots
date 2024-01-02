@@ -8,6 +8,7 @@ starship init fish | source
 if status is-interactive
 and not set -q TMUX
 and command -sq tmux
+and [ "$TERM_PROGRAM" != "vscode" ]
     exec tmux
 end
 
