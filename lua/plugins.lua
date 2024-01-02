@@ -20,44 +20,24 @@ require('packer').startup(function()
     use 'joshdick/onedark.vim'
     use 'tpope/vim-surround'
     use 'tpope/vim-commentary'
+    use 'tpope/vim-dispatch'
+    use 'tpope/vim-unimpaired'
+    use 'tpope/vim-eunuch'
+    use 'tpope/vim-sensible'
     use 'simrat39/rust-tools.nvim'
     use 'vim-scripts/auto-pairs-gentle'
 
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
+    use 'folke/trouble.nvim'
 end)
-
--- Colorscheme
-vim.opt.termguicolors = true
-vim.cmd [[
-    colorscheme onedark
-    hi Normal guibg=none
-    hi NormalFloat guibg=#171717
-
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
-    set expandtab
-
-    set undofile
-    set noswapfile
-    set nobackup
-
-    set number
-]]
-
--- Jump to last position
-vim.cmd [[ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
 
 -- On attach for language servers
 local on_attach = function(client, bufnr)
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.o.completeopt = 'menu,menuone,noselect'
     vim.o.shortmess = vim.o.shortmess .. 'c'
     vim.o.updatetime = 10
-    vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
 end
 
 -- nvim-cmp
@@ -70,11 +50,12 @@ cmp.setup({
         end,
     },
     mapping = {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = {
         { name = 'nvim_lsp' },
