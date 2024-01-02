@@ -13,6 +13,7 @@ require('packer').startup(function()
     use 'williamboman/nvim-lsp-installer'
 
     use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/vim-vsnip'
     use 'hrsh7th/cmp-vsnip'
@@ -113,6 +114,7 @@ cmp.setup({
     },
     sources = {
         { name = 'nvim_lsp' },
+        { name = "nvim_lsp_signature_help" },
         -- { name = 'vsnip' },
         -- { name = 'buffer' },
     }
