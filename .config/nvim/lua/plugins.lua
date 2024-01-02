@@ -140,7 +140,7 @@ lspconfig.sumneko_lua.setup {
     settings = {
         Lua = {
             diagnostics = {
-                globals = { "vim", "use", "foo" }
+                globals = { "vim", "use" }
             },
             workspace = {
                 library = vim.api.nvim_get_runtime_file("", true)
@@ -164,6 +164,8 @@ vim.cmd [[
     nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
     nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
     nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> ]e    <cmd>lua vim.diagnostic.goto_next()<CR>
+    nnoremap <silent> [e    <cmd>lua vim.diagnostic.goto_prev()<CR>
 
     " Quick-fix
     nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
@@ -177,6 +179,8 @@ vim.cmd [[
 
     nnoremap <silent> <C-s> :w<CR>
     inoremap <silent> <C-s> <ESC>:w<CR>
+
+    noremap <silent> - :NvimTreeToggle<CR>
 ]]
 
 -- Keybinds
