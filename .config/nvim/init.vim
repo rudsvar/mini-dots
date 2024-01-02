@@ -10,6 +10,7 @@ set noswapfile
 set nobackup
 
 set number
+set signcolumn=yes
 
 set foldmethod=syntax
 
@@ -20,7 +21,6 @@ augroup AutoView
     au BufWinLeave *.* mkview!
     au BufWinEnter *.* silent loadview
 augroup END
-
 
 " Colors
 set termguicolors
