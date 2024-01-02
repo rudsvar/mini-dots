@@ -34,7 +34,6 @@ vim.cmd [[
     colorscheme onedark
     hi Normal guibg=none
     hi NormalFloat guibg=#171717
-    hi SignColumn guibg=#171717
 
     set tabstop=4
     set softtabstop=4
@@ -44,8 +43,9 @@ vim.cmd [[
     set undofile
     set noswapfile
     set nobackup
+
+    set number
 ]]
-vim.o.signcolumn='yes'
 
 -- Jump to last position
 vim.cmd [[ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]]
@@ -103,9 +103,9 @@ end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
-    signs = true,
+    signs = false,
     underline = true,
-    update_in_insert = true,
+    update_in_insert = false,
 })
 
 vim.cmd [[
@@ -121,6 +121,7 @@ vim.cmd [[
 
     " Quick-fix
     nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+    nnoremap <silent> <F2>  <cmd>lua vim.lsp.buf.rename()<CR>
 
     augroup AutoFormat
         au!
@@ -130,3 +131,9 @@ vim.cmd [[
     nnoremap <silent> <C-s> :w<CR>
     inoremap <silent> <C-s> <ESC>:w<CR>
 ]]
+
+-- Keybinds
+vim.cmd('nnoremap <C-p> :Telescope git_files<CR>')
+vim.cmd('nnoremap <C-g> :Telescope live_grep<CR>')
+vim.cmd('noremap <C-_> :Commentary<CR>')
+
