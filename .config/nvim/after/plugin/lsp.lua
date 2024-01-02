@@ -48,6 +48,11 @@ lsp.set_preferences({
     }
 })
 
+lsp.on_attach(function(_, bufnr)
+    local opts = { buffer = bufnr, remap = false }
+    vim.keymap.set("n", "ga", function() vim.lsp.buf.code_action() end, opts)
+end)
+
 lsp.setup()
 
 vim.diagnostic.config({
