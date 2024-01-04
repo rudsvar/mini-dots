@@ -1,0 +1,7 @@
+cmd - h [
+  "kitty" : skhd -k "ctrl - a" && skhd -k "left"
+]
+
+cmd - k [
+  "kitty" : skhd -k "ctrl - a" && skhd -k "up"
+]
