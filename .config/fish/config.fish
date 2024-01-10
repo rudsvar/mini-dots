@@ -25,5 +25,9 @@ if command -sq exa
     alias ls exa
 end
 
+if command -sq direnv
+    direnv hook fish | source
+end
+
 alias cx 'cd (fd . --type d | fzf --height 50% --reverse)'
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
