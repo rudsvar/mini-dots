@@ -18,7 +18,7 @@ require('lazy').setup({
     'tpope/vim-commentary',
     'tpope/vim-surround',
     'tpope/vim-fugitive',
-    { 'tpope/vim-unimpaired', lazy = true },
+    'tpope/vim-unimpaired',
     'tpope/vim-eunuch',
     'tpope/vim-sleuth',
     'tpope/vim-repeat',

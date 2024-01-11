@@ -2,6 +2,7 @@ alias conf="git --git-dir=$HOME/.cfg --work-tree=$HOME"
 
 set -x EDITOR nvim
 set -x VISUAL $EDITOR 
+set -x JDTLS_JVM_ARGS "-javaagent:$HOME/Downloads/lombok.jar"
 
 starship init fish | source
 
