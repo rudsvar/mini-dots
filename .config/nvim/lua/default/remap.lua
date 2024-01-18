@@ -25,6 +25,7 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set("n", "<C-_>", ":Comment<CR>")
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
