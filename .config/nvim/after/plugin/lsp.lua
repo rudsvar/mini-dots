@@ -2,7 +2,7 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({})
+lsp.ensure_installed({ 'rust_analyzer', 'lua_ls', 'pyright' })
 
 -- Fix Undefined global 'vim'
 lsp.configure('lua_ls', {
@@ -20,6 +20,20 @@ lsp.configure('rust_analyzer', {
         ['rust-analyzer'] = {
             checkOnSave = {
                 command = 'clippy'
+            }
+        }
+    }
+})
+
+lsp.configure('pyright', {
+    settings = {
+        python = {
+            analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                typeCheckingMode = "strict",
+                useLibraryCodeForTypes = true
             }
         }
     }
