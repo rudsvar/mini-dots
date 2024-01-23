@@ -30,5 +30,25 @@ if command -sq direnv
     direnv hook fish | source
 end
 
-alias cx 'cd (fd . --type d | fzf --height 50% --reverse)'
+function cx
+    set DIR $(fd . --type d | fzf --height 50% --reverse)
+    if test -n "$DIR"
+        cd $DIR
+    end
+end
+
+function cg
+    set DIRS $(fd $HOME/git --type d)
+    set GIT_DIRS ""
+    for DIR in $DIRS
+        if test -d $DIR/.git
+            set GIT_DIRS "$GIT_DIRS $DIR"
+        end
+    end
+    set GIT_DIR (echo $GIT_DIRS | sed 's/ /\n/g' | fzf --height 50% --reverse)
+    if test -n "$GIT_DIR"
+        cd $GIT_DIR
+    end
+end
+
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'

@@ -25,6 +25,20 @@ lsp.configure('rust_analyzer', {
     }
 })
 
+lsp.configure('pyright', {
+    settings = {
+        python = {
+            analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                typeCheckingMode = "strict",
+                useLibraryCodeForTypes = true
+            }
+        }
+    }
+})
+
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
