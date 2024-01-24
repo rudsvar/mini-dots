@@ -31,14 +31,14 @@ if command -sq direnv
 end
 
 function cx
-    set DIR $(fd . --type d | fzf --height 50% --reverse)
+    set DIR (fd . --type d | fzf --height 50% --reverse)
     if test -n "$DIR"
         cd $DIR
     end
 end
 
 function cg
-    set DIRS $(fd $HOME/git --type d)
+    set DIRS (fd $HOME/git --type d)
     set GIT_DIRS ""
     for DIR in $DIRS
         if test -d $DIR/.git
