@@ -32,7 +32,7 @@ lsp.configure('pyright', {
                 autoImportCompletions = true,
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
-                typeCheckingMode = "strict",
+                typeCheckingMode = "off",
                 useLibraryCodeForTypes = true
             }
         }
@@ -68,7 +68,9 @@ lsp.set_preferences({
 
 lsp.on_attach(function(_, bufnr)
     local opts = { buffer = bufnr, remap = false }
-    vim.keymap.set("n", "ga", function() vim.lsp.buf.code_action() end, opts)
+    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", ']g', vim.diagnostic.goto_next)
+    vim.keymap.set("n", '[g', vim.diagnostic.goto_prev)
 end)
 
 lsp.setup()

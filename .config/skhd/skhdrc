@@ -5,3 +5,23 @@ cmd - h [
 cmd - k [
   "kitty" : skhd -k "ctrl - a" && skhd -k "up"
 ]
+
+cmd - 1 [
+  "kitty" : skhd -k "ctrl - a" && skhd -k "1"
+]
+
+cmd - 2 [
+  "kitty" : skhd -k "ctrl - a" && skhd -k "2"
+]
+
+cmd - 3 [
+  "kitty" : skhd -k "ctrl - a" && skhd -k "3"
+]
+
+cmd - 4 [
+  "kitty" : skhd -k "ctrl - a" && skhd -k "4"
+]
+
+cmd - 5 [
+  "kitty" : skhd -k "ctrl - a" && skhd -k "5"
+]
