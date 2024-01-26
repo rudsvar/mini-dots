@@ -10,7 +10,7 @@ if status is-interactive
 and not set -q TMUX
 and command -sq tmux
 and [ "$TERM_PROGRAM" != "vscode" ]
-# and [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]
+and [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]
     exec tmux new-session -A -t main
 end
 
