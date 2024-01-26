@@ -51,4 +51,13 @@ function cg
     end
 end
 
+function kx
+    set PROCESS (ps | tail | fzf --height 50% --reverse --header "kill $argv")
+    if test -z "$PROCESS"
+        return
+    end
+    set id (echo $PROCESS | awk '{print $1}')
+    kill $argv "$id"
+end
+
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
