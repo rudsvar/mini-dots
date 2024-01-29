@@ -762,3 +762,5 @@ $env.config = {
 }
 
 use ~/.cache/starship/init.nu
+
+alias conf = git $'--git-dir=($env.HOME)/.cfg' $'--work-tree=($env.HOME)'
