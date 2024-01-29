@@ -5,4 +5,11 @@
 PATH=$PATH:"$HOME/.ghcup/bin"
 PATH=$PATH:"$HOME/go/bin"
 
-exec fish
+# Try nushell and fish
+if [ -x nu ]; then
+    exec nu
+fi
+
+if [ -x fish ]; then
+    exec fish
+fi
