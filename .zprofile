@@ -6,10 +6,10 @@ PATH=$PATH:"$HOME/.ghcup/bin"
 PATH=$PATH:"$HOME/go/bin"
 
 # Try nushell and fish
-if [ -x nu ]; then
+if [ -x "$(which nu)" ]; then
     exec nu
 fi
 
-if [ -x fish ]; then
+if [ -x "$(which fish)" ]; then
     exec fish
 fi
