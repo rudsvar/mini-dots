@@ -14,3 +14,6 @@ vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = "none", fg = "#ffffff
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk", { bg = "none", fg = "#ffffff" })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "none", fg = "#ffff00" })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg = "#ff0000" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg = "#ff0000" })
+vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "none" })
