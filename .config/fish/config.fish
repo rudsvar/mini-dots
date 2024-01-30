@@ -38,7 +38,7 @@ function cx
 end
 
 function cg
-    set DIRS (fd $HOME/git --type d)
+    set DIRS (fd . "$HOME/git" --type d)
     set GIT_DIRS ""
     for DIR in $DIRS
         if test -d $DIR/.git
