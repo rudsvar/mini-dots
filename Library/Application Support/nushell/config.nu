@@ -764,3 +764,11 @@ $env.config = {
 use ~/.cache/starship/init.nu
 
 alias conf = git $'--git-dir=($env.HOME)/.cfg' $'--work-tree=($env.HOME)'
+
+if (not (which et | is-empty)) {
+    alias tree = et
+}
+
+if (not (which exa | is-empty)) {
+    alias ls = exa
+}
