@@ -18,8 +18,8 @@ if test -e todo.md
     cat todo.md
 end
 
-if command -sq et
-    alias tree et
+if command -sq erd
+    alias tree erd
 end
 
 if command -sq exa
