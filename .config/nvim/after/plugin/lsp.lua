@@ -32,7 +32,7 @@ lsp.configure('pyright', {
                 autoImportCompletions = true,
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
-                typeCheckingMode = "off",
+                typeCheckingMode = "basic",
                 useLibraryCodeForTypes = true
             }
         }
