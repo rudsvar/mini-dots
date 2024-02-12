@@ -1,5 +1,5 @@
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.spell = true
 
 vim.opt.tabstop = 4
@@ -23,6 +23,7 @@ vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
