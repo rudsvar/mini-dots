@@ -60,4 +60,13 @@ function kx
     kill $argv "$id"
 end
 
+function kp
+    set PROCESS (lsof -i -P -n | fzf --height 50% --reverse --header "kill $argv")
+    if test -z "$PROCESS"
+        return
+    end
+    set id (echo $PROCESS | awk '{print $2}')
+    kill $argv "$id"
+end
+
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
