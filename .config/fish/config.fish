@@ -7,6 +7,7 @@ set -x JDTLS_JVM_ARGS "-javaagent:$HOME/Downloads/lombok.jar"
 starship init fish | source
 
 if status is-interactive
+and [ "$DISPLAY" != "" ]
 and not set -q TMUX
 and command -sq tmux
 and [ "$TERM_PROGRAM" != "vscode" ]

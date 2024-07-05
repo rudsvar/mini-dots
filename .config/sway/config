@@ -1,0 +1,128 @@
+# vim: set ft=i3config:
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term kitty
+set $menu wofi --show drun
+# Might not work until 1.0
+input "*" {
+  xkb_layout us,no
+  xkb_options grp:toggle,grp:win_space_toggle,caps:escape
+  repeat_delay 250
+  repeat_rate 40
+  tap enabled
+}
+
+output DP-1 {
+  pos 0 0
+  res 3440x1440@100Hz
+  background ~/Pictures/fishtank_nebula.png fill
+}
+
+# Colors
+client.focused          #222222 #222222 #ffffff #222222 #222222
+client.focused_inactive #111111 #111111 #ffffff #111111 #111111
+client.unfocused        #333333 #ffffff #888888 #292d2e #111111
+client.urgent           #ff0000 #ff0000 #ff0000 #ff0000 #ff0000
+client.placeholder      #ffffff #ffffff #ffffff #ffffff #ffffff
+client.background       #ffffff
+
+# Gaps
+smart_gaps on
+gaps inner 10
+gaps outer 0
+
+default_border pixel 2
+
+# Brightness
+bindsym Print exec grim -g "$(slurp)" $HOME/Pictures/screenshots/$(date +"%Y-%m-%d-%H:%M:%S.png")
+bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
+
+# Audio
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1%
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioPlay        exec --no-startup-id playerctl play
+bindsym XF86AudioPause       exec --no-startup-id playerctl pause
+bindsym XF86AudioNext        exec --no-startup-id playerctl next
+bindsym XF86AudioPrev        exec --no-startup-id playerctl previous
+
+# Basics:
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec $menu
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+e exit
+
+# Moving around:
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+y resize shrink width 10 px or 10 ppt
+bindsym $mod+u resize grow height 10 px or 10 ppt
+bindsym $mod+i resize shrink height 10 px or 10 ppt
+bindsym $mod+o resize grow width 10 px or 10 ppt
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Workspaces:
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+
+# Layout stuff:
+bindsym $mod+g splith
+bindsym $mod+v splitv
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+floating_modifier $mod normal
+
+# Scratchpad:
+bindsym $mod+Shift+s move scratchpad
+bindsym $mod+s scratchpad show
+
+# Status Bar (man 5 sway-bar):
+bar {
+  font "DejaVuSansMono 9"
+  status_command i3status
+  separator_symbol " | "
+  position bottom
+  colors {
+    statusline #777777
+    separator #333333
+    background #0c0c0c
+    focused_workspace #333333 #0a0a0a #333333
+    inactive_workspace #0f0f0f #0a0a0a #333333
+  }
+}
+
+include /etc/sway/config.d/*
