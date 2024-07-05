@@ -8,7 +8,7 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $menu wofi --show drun
+set $menu rofi -show drun
 # Might not work until 1.0
 input "*" {
   xkb_layout us,no
@@ -16,6 +16,7 @@ input "*" {
   repeat_delay 250
   repeat_rate 40
   tap enabled
+  accel_profile "flat"
 }
 
 output DP-1 {
