@@ -1,0 +1,17 @@
+# vim: set filetype=toml
+
+[ip]
+command=echo "$(whoami)@$(hostname) / $(hostname -i | awk '{ print $1 }')"
+interval=once
+
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=3600
+
+[date]
+command=date "+%A %d %B %Y"
+interval=5
+
+[time]
+command=date "+%H:%M"
+interval=5

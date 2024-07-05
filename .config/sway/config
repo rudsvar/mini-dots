@@ -117,7 +117,7 @@ bindsym $mod+s scratchpad show
 # Status Bar (man 5 sway-bar):
 bar {
   font "DejaVuSansMono 9"
-  status_command i3status
+  status_command i3blocks
   separator_symbol " | "
   position bottom
   colors {
