@@ -97,7 +97,7 @@ bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 
 bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
 
 # Layout stuff:
 bindsym $mod+g splith
