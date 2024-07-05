@@ -16,7 +16,7 @@ input "*" {
   repeat_delay 250
   repeat_rate 40
   tap enabled
-  accel_profile "flat"
+  # accel_profile "flat"
 }
 
 output DP-1 {
