@@ -18,15 +18,19 @@ color=#fafafa
 [cpu]
 command=echo CPU $(sensors -j | jq '."coretemp-isa-0000"."Package id 0".temp1_input' | cut -f 1 -d .) °C
 interval=1
+color=#a87486
 
 [ip]
 command=echo "$(hostname -i | awk '{ print $1 }')"
 interval=once
+color=#949c65
 
 [date]
 command=date "+%A %d %B %Y"
 interval=5
+color=#9c88a6
 
 [time]
 command=date "+%H:%M"
 interval=5
+color=#a6889f
