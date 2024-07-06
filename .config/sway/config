@@ -19,9 +19,9 @@ input "*" {
   # accel_profile "flat"
 }
 
-output DP-1 {
-  pos 0 0
-  res 3440x1440@100Hz
+output * {
+  position 0 0
+  resolution 3440x1440@100Hz
   background ~/Pictures/fishtank_nebula.png fill
 }
 
