@@ -2,7 +2,7 @@
 
 [spotify]
 command=echo "$(playerctl -p spotify status) | $(playerctl -p spotify metadata xesam:title) by $(playerctl -p spotify metadata xesam:artist)"
-interval=5
+interval=1
 color=#aafaaa
 
 [weather]
