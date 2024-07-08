@@ -9,7 +9,7 @@ set $up k
 set $right l
 set $term kitty
 set $menu rofi -show drun
-# Might not work until 1.0
+
 input "*" {
   xkb_layout us,no
   xkb_options grp:toggle,grp:win_space_toggle,caps:escape
@@ -116,7 +116,7 @@ bindsym $mod+s scratchpad show
 
 # Status Bar (man 5 sway-bar):
 bar {
-  font "DejaVuSansMono 9"
+  font "DejaVuSansMono 10"
   status_command i3blocks
   separator_symbol " | "
   position bottom
