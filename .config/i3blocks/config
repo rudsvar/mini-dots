@@ -1,7 +1,7 @@
 # vim: set filetype=toml
 
 [spotify]
-command=echo "$(playerctl -p spotify status) | $(playerctl -p spotify metadata xesam:title) by $(playerctl -p spotify metadata xesam:artist)"
+command=~/Scripts/spotify.sh
 interval=1
 color=#aafaaa
 
