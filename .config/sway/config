@@ -16,7 +16,7 @@ input "*" {
   repeat_delay 250
   repeat_rate 40
   tap enabled
-  # accel_profile "flat"
+  accel_profile "flat"
 }
 
 output * {
@@ -111,8 +111,8 @@ bindsym $mod+a focus parent
 floating_modifier $mod normal
 
 # Scratchpad:
-bindsym $mod+Shift+s move scratchpad
-bindsym $mod+s scratchpad show
+# bindsym $mod+Shift+s move scratchpad
+# bindsym $mod+s scratchpad show
 
 # Status Bar (man 5 sway-bar):
 bar {
