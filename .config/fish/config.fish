@@ -3,13 +3,14 @@ alias conf="git --git-dir=$HOME/.cfg --work-tree=$HOME"
 set -x EDITOR nvim
 set -x VISUAL $EDITOR 
 set -x JDTLS_JVM_ARGS "-javaagent:$HOME/Downloads/lombok.jar"
+set uname (uname)
 
 starship init fish | source
 
 if status is-interactive
-and [ "$DISPLAY" != "" ]
 and not set -q TMUX
 and command -sq tmux
+and [ "$uname" = "Darwin" -o "$DISPLAY" != "" ]
 and [ "$TERM_PROGRAM" != "vscode" ]
 and [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]
     exec tmux new-session -A -t main
