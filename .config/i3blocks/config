@@ -20,11 +20,6 @@ command=echo 🌡️ CPU $(sensors -j | jq '."coretemp-isa-0000"."Package id 0".
 interval=1
 color=#a87486
 
-[ip]
-command=echo "📟 $(hostname -i | awk '{ print $1 }')"
-interval=once
-color=#949c65
-
 [button]
 command=~/scripts/updates.sh
 interval=1
