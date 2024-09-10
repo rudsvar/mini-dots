@@ -5,7 +5,9 @@ set -x VISUAL $EDITOR
 set -x JDTLS_JVM_ARGS "-javaagent:$HOME/Downloads/lombok.jar"
 set uname (uname)
 
-starship init fish | source
+if command -sq starship
+    starship init fish | source
+end
 
 if status is-interactive
 and not set -q TMUX
