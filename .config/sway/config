@@ -21,7 +21,7 @@ input "*" {
 
 output * {
   position 0 0
-  resolution 3440x1440@100Hz
+  resolution 3440x1440@120Hz
   background ~/Pictures/fishtank_nebula.png fill
 }
 
