@@ -6,6 +6,8 @@ PATH=$PATH:"$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin"
 PATH=$PATH:"$HOME/.rustup/toolchains/stable-aarch64-apple-darwin/bin"
 PATH=$PATH:"$HOME/.cargo/bin"
 PATH=$PATH:"$HOME/go/bin"
+PATH="/home/rudi/.dotnet:$PATH"
+PATH="/home/rudi/.dotnet/tools:$PATH"
 
 # Add flyctl to path
 FLYCTL_INSTALL="/home/rudi/.fly"
