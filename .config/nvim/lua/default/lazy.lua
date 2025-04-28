@@ -126,7 +126,7 @@ require('lazy').setup({
             vim.api.nvim_set_keymap("i", "<S-Tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
         end,
         -- Lazy-load on a command
-        -- cmd = "Copilot",
+        cmd = "Copilot",
     },
 
     {
