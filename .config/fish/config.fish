@@ -56,7 +56,7 @@ function cg
 end
 
 function kx
-    set PROCESS (ps | tail | fzf --height 50% --reverse --header "kill $argv")
+    set PROCESS (ps | tail +2 | fzf --height 50% --reverse --header "kill $argv")
     if test -z "$PROCESS"
         return
     end
@@ -65,7 +65,7 @@ function kx
 end
 
 function kp
-    set PROCESS (lsof -i -P -n | fzf --height 50% --reverse --header "kill $argv")
+    set PROCESS (lsof -i -P -n | | tail +2 | fzf --height 50% --reverse --header "kill $argv")
     if test -z "$PROCESS"
         return
     end
