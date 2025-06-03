@@ -4,6 +4,7 @@ set -x EDITOR nvim
 set -x VISUAL $EDITOR 
 set -x JDTLS_JVM_ARGS "-javaagent:$HOME/Downloads/lombok.jar"
 set uname (uname)
+set -x COMPOSE_BAKE true
 
 if command -sq starship
     starship init fish | source
