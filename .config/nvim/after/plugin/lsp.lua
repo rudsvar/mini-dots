@@ -18,9 +18,7 @@ lsp.configure('lua_ls', {
 lsp.configure('rust_analyzer', {
     settings = {
         ['rust-analyzer'] = {
-            checkOnSave = {
-                command = 'clippy'
-            }
+            checkOnSave = true
         }
     }
 })

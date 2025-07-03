@@ -76,6 +76,4 @@ end
 
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-set --export --prepend PATH "/Users/rudi-ilder/.rd/bin"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+set --export --prepend PATH "$HOME/.claude/local"

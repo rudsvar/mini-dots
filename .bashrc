@@ -18,12 +18,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Try nushell and fish
-if [ -x "$(which fish)" ]; then
-    exec fish
-fi
+if [[ $- == *i* ]]; then
+    if [ -x "$(which fish)" ]; then
+        exec fish
+    fi
 
-if [ -x "$(which nu)" ]; then
-    exec nu
+    if [ -x "$(which nu)" ]; then
+        exec nu
+    fi
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
