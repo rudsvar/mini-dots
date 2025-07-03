@@ -18,7 +18,12 @@ lsp.configure('lua_ls', {
 lsp.configure('rust_analyzer', {
     settings = {
         ['rust-analyzer'] = {
-            checkOnSave = true
+            checkOnSave = true,
+            diagnostics = {
+                experimental = {
+                    enable = true
+                }
+            }
         }
     }
 })
