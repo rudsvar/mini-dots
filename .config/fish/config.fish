@@ -75,5 +75,4 @@ function kp
 end
 
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
-
-set --export --prepend PATH "$HOME/.claude/local"
+alias claude="~/.claude/local/claude"

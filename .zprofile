@@ -4,6 +4,7 @@
 
 PATH=$PATH:"$HOME/.ghcup/bin"
 PATH=$PATH:"$HOME/go/bin"
+alias claude="~/.claude/local/claude"
 
 # Try nushell and fish
 if [[ $- == *i* ]]; then
