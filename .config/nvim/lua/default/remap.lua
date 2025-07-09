@@ -2,8 +2,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.cmd([[
-    nnoremap <silent> <C-s> :w<CR>
-    inoremap <silent> <C-s> <ESC>:w<CR>
+    nnoremap <silent> <C-s> :wa<CR>
+    inoremap <silent> <C-s> <ESC>:wa<CR>
     nnoremap <silent> <C-q> :bdelete<CR>
 ]])
 
