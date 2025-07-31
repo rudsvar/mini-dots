@@ -13,3 +13,7 @@ vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "none", fg = "#777700
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg = "#770000" })
 vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "none" })
+
+-- LSP hover/documentation window background (Shift+K)
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1e1e1e", fg = "#666666" })

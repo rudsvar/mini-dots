@@ -1,11 +1,60 @@
-local lsp = require("lsp-zero")
+-- Set up nvim-cmp
+local cmp = require('cmp')
+local luasnip = require('luasnip')
 
-lsp.preset("recommended")
+-- Load snippets
+require('luasnip.loaders.from_vscode').lazy_load()
 
-lsp.ensure_installed({ 'rust_analyzer', 'lua_ls', 'pyright' })
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-e>'] = cmp.mapping.close(),
+    }),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'nvim_lua' },
+    }, {
+        { name = 'buffer' },
+        { name = 'path' },
+    })
+})
 
--- Fix Undefined global 'vim'
-lsp.configure('lua_ls', {
+-- Set up LSP servers
+local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- Define on_attach function
+local on_attach = function(_, bufnr)
+    local opts = { buffer = bufnr, remap = false }
+    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", ']e', vim.diagnostic.goto_next)
+    vim.keymap.set("n", '[e', vim.diagnostic.goto_prev)
+end
+
+-- Configure LSP handlers with borders
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded"
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded"
+})
+
+-- Lua LSP
+lspconfig.lua_ls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
     settings = {
         Lua = {
             diagnostics = {
@@ -15,7 +64,10 @@ lsp.configure('lua_ls', {
     }
 })
 
-lsp.configure('rust_analyzer', {
+-- Rust Analyzer
+lspconfig.rust_analyzer.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
     settings = {
         ['rust-analyzer'] = {
             checkOnSave = true,
@@ -28,7 +80,10 @@ lsp.configure('rust_analyzer', {
     }
 })
 
-lsp.configure('pyright', {
+-- Pyright
+lspconfig.pyright.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
     settings = {
         python = {
             analysis = {
@@ -42,42 +97,13 @@ lsp.configure('pyright', {
     }
 })
 
-local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete()
+-- Gleam LSP
+lspconfig.gleam.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
 })
 
--- cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
--- cmp_mappings['<CR>'] = nil
-
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-    suggest_lsp_servers = true,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
-
-lsp.on_attach(function(_, bufnr)
-    local opts = { buffer = bufnr, remap = false }
-    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", ']e', vim.diagnostic.goto_next)
-    vim.keymap.set("n", '[e', vim.diagnostic.goto_prev)
-end)
-
-lsp.setup()
-
+-- Diagnostic configuration
 vim.diagnostic.config({
     virtual_text = true,
     signs = true,
@@ -93,3 +119,10 @@ vim.diagnostic.config({
         prefix = '',
     },
 })
+
+-- Diagnostic signs
+local signs = { Error = "E", Warn = "W", Hint = "H", Info = "I" }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
