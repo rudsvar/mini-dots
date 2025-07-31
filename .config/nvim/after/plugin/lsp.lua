@@ -41,6 +41,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", ']e', vim.diagnostic.goto_next)
     vim.keymap.set("n", '[e', vim.diagnostic.goto_prev)
+    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
 end
 
 -- Configure LSP handlers with borders
@@ -106,7 +107,11 @@ lspconfig.gleam.setup({
 
 -- Diagnostic configuration
 vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = {
+        spacing = 1,
+        prefix = '',
+        suffix = ',',
+    },
     signs = true,
     update_in_insert = true,
     underline = true,
@@ -120,6 +125,7 @@ vim.diagnostic.config({
         prefix = '',
     },
 })
+
 
 -- Diagnostic signs
 local signs = { Error = "E", Warn = "W", Hint = "H", Info = "I" }

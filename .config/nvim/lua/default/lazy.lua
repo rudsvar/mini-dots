@@ -27,39 +27,10 @@ require('lazy').setup({
         config = function() require("nvim-autopairs").setup {} end
     },
     'airblade/vim-gitgutter',
-    {
-        'nvim-tree/nvim-tree.lua',
-        config = function()
-            -- Auto close nvim tree
-            vim.api.nvim_create_autocmd("BufEnter", {
-                nested = true,
-                callback = function()
-                    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
-                        vim.cmd "quit"
-                    end
-                end
-            })
-            require('nvim-tree').setup {
-                update_focused_file = { enable = true },
-                diagnostics = { enable = true },
-                view = { width = 50 }
-            }
-        end,
-    },
-
     -- Search
     {
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
-    },
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
-        config = function()
-            require("trouble").setup({
-                icons = false,
-            })
-        end
     },
 
     -- Colorscheme
