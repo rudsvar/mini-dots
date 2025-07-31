@@ -11,14 +11,23 @@ cmp.setup({
             luasnip.lsp_expand(args.body)
         end,
     },
+    window = {
+        completion = {
+            winhighlight = "Normal:CmpCompletion,CursorLine:CmpItemSel",
+        },
+        documentation = {
+            border = "rounded",
+            winhighlight = "Normal:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
+        },
+    },
     mapping = cmp.mapping.preset.insert({
         ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<Tab>'] = cmp.mapping.confirm({ select = true }),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
         ['<C-e>'] = cmp.mapping.close(),
     }),
     sources = cmp.config.sources({
