@@ -62,10 +62,33 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
     border = "rounded"
 })
 
--- Lua LSP
-lspconfig.lua_ls.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+-- Helper function to setup LSP servers
+local function setup_lsp(server, config)
+    -- Get the command from lspconfig's default config
+    local server_config = lspconfig[server]
+    if not server_config then
+        return
+    end
+
+    local cmd = server_config.document_config.default_config.cmd
+    if cmd and vim.fn.executable(cmd[1]) == 0 then
+        return
+    end
+
+    local default_config = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+    }
+
+    if config then
+        default_config = vim.tbl_deep_extend("force", default_config, config)
+    end
+
+    lspconfig[server].setup(default_config)
+end
+
+-- Setup LSP servers
+setup_lsp("lua_ls", {
     settings = {
         Lua = {
             diagnostics = {
@@ -75,10 +98,7 @@ lspconfig.lua_ls.setup({
     }
 })
 
--- Rust Analyzer
-lspconfig.rust_analyzer.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+setup_lsp("rust_analyzer", {
     settings = {
         ['rust-analyzer'] = {
             checkOnSave = true,
@@ -91,10 +111,7 @@ lspconfig.rust_analyzer.setup({
     }
 })
 
--- Pyright
-lspconfig.pyright.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+setup_lsp("pyright", {
     settings = {
         python = {
             analysis = {
@@ -108,11 +125,8 @@ lspconfig.pyright.setup({
     }
 })
 
--- Gleam LSP
-lspconfig.gleam.setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
+setup_lsp("gleam")
+setup_lsp("gopls")
 
 -- Diagnostic configuration
 vim.diagnostic.config({
