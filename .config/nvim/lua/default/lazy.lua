@@ -68,12 +68,37 @@ require('lazy').setup({
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
         config = function()
-            require('lualine').setup({})
+            require('lualine').setup({
+                sections = {
+                    lualine_c = {
+                        'filename',
+                        {
+                            function()
+                                local ok, clients = pcall(vim.lsp.get_clients, { bufnr = 0 })
+                                if not ok or not clients or #clients == 0 then
+                                    return ""
+                                end
+                                local names = {}
+                                for _, client in ipairs(clients) do
+                                    if client and client.name then
+                                        table.insert(names, client.name)
+                                    end
+                                end
+                                if #names == 0 then
+                                    return ""
+                                end
+                                return table.concat(names, " ")
+                            end,
+                        },
+                    },
+                }
+            })
         end
     },
 
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter', cmd = 'TSUpdate' },
+    'nvim-treesitter/playground',
 
     {
         "dstein64/vim-startuptime",
