@@ -56,7 +56,7 @@ bindsym XF86AudioPrev        exec --no-startup-id playerctl -p spotify previous
 
 # Basics:
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exit
