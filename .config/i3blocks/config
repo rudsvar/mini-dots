@@ -25,7 +25,7 @@ command=~/scripts/updates.sh
 interval=1
 
 [date]
-command=echo "📆 $(date '+%A %d %B %Y')"
+command=echo "📆 $(date '+%A %d %B')"
 interval=5
 color=#9c88a6
 
