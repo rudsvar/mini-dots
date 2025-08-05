@@ -127,6 +127,7 @@ setup_lsp("pyright", {
 
 setup_lsp("gleam")
 setup_lsp("gopls")
+setup_lsp("hls")
 
 -- Diagnostic configuration
 vim.diagnostic.config({
