@@ -12,7 +12,7 @@ set $menu rofi -show drun
 
 input "*" {
   xkb_layout us,no
-  xkb_options grp:toggle,grp:win_space_toggle,caps:escape
+  xkb_options grp:toggle,grp:ctrl_space_toggle,caps:escape
   repeat_delay 250
   repeat_rate 40
   tap enabled
@@ -57,7 +57,7 @@ bindsym XF86AudioPrev        exec --no-startup-id playerctl -p spotify previous
 # Basics:
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-bindsym $mod+d exec $menu
+bindsym $mod+space exec $menu
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exit
 
@@ -104,8 +104,8 @@ bindsym $mod+g splith
 bindsym $mod+v splitv
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+Shift+space floating toggle
+# bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 floating_modifier $mod normal
