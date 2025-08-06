@@ -16,7 +16,7 @@ and command -sq tmux
 and [ "$uname" = "Darwin" -o "$DISPLAY" != "" ]
 and [ "$TERM_PROGRAM" != "vscode" ]
 and [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]
-    exec tmux new-session -A -t main
+    exec tmux new-session
 end
 
 if test -e todo.md
