@@ -75,4 +75,6 @@ function kp
 end
 
 alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{}"'
-alias claude="~/.claude/local/claude"
+if test -f ~/.claude/local/claude;
+    alias claude="~/.claude/local/claude"
+end
