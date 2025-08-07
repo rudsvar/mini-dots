@@ -41,7 +41,7 @@ gaps outer 0
 default_border pixel 2
 
 # Brightness
-bindsym Print exec grim -g "$(slurp)" $HOME/Pictures/screenshots/$(date +"%Y-%m-%d-%H:%M:%S.png")
+bindsym Print exec mkdir -p $HOME/Pictures/Screenshots && grim -g "$(slurp)" - | tee $HOME/Pictures/Screenshots/$(date +"%Y-%m-%d-%H:%M:%S.png") | wl-copy -t image/png
 bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
 
