@@ -11,7 +11,7 @@ interval=3600
 color=#aaaafa
 
 [disk]
-command=df -h | rg " /\$" | awk '{ print "💽 " $1 " on " $6 " - " $3 " of " "" $2 " (" $5 ")" }'
+command=df -h | rg " /\$" | awk '{ print "💽 " $1 " - " $5 " of " "" $2 }'
 interval=5
 color=#fafafa
 
