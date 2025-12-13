@@ -41,17 +41,18 @@ cmp.setup({
 })
 
 -- Set up LSP servers
-local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Define on_attach function
-local on_attach = function(_, bufnr)
-    local opts = { buffer = bufnr, remap = false }
-    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", ']e', vim.diagnostic.goto_next)
-    vim.keymap.set("n", '[e', vim.diagnostic.goto_prev)
-    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
-end
+-- Set up LSP commands
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local opts = { buffer = bufnr, remap = false }
+        vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", ']e', vim.diagnostic.goto_next)
+        vim.keymap.set("n", '[e', vim.diagnostic.goto_prev)
+        vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
+    end
+})
 
 -- Configure LSP handlers with borders
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -62,33 +63,8 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
     border = "rounded"
 })
 
--- Helper function to setup LSP servers
-local function setup_lsp(server, config)
-    -- Get the command from lspconfig's default config
-    local server_config = lspconfig[server]
-    if not server_config then
-        return
-    end
-
-    local cmd = server_config.document_config.default_config.cmd
-    if cmd and vim.fn.executable(cmd[1]) == 0 then
-        return
-    end
-
-    local default_config = {
-        capabilities = capabilities,
-        on_attach = on_attach,
-    }
-
-    if config then
-        default_config = vim.tbl_deep_extend("force", default_config, config)
-    end
-
-    lspconfig[server].setup(default_config)
-end
-
 -- Setup LSP servers
-setup_lsp("lua_ls", {
+vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
             diagnostics = {
@@ -98,7 +74,7 @@ setup_lsp("lua_ls", {
     }
 })
 
-setup_lsp("rust_analyzer", {
+vim.lsp.config("rust_analyzer", {
     settings = {
         ['rust-analyzer'] = {
             checkOnSave = true,
@@ -111,7 +87,7 @@ setup_lsp("rust_analyzer", {
     }
 })
 
-setup_lsp("pyright", {
+vim.lsp.config("pyright", {
     settings = {
         python = {
             analysis = {
@@ -125,9 +101,10 @@ setup_lsp("pyright", {
     }
 })
 
-setup_lsp("gleam")
-setup_lsp("gopls")
-setup_lsp("hls")
+vim.lsp.config("gleam", {})
+vim.lsp.config("gopls", {})
+vim.lsp.config("hls", {})
+vim.lsp.enable({"lua_ls", "rust_analyzer", "pyright", "gleam", "gopls", "hls"})
 
 -- Diagnostic configuration
 vim.diagnostic.config({
