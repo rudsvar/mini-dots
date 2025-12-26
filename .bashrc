@@ -9,6 +9,7 @@ PATH=$PATH:"$HOME/go/bin"
 PATH="/home/rudi/.dotnet:$PATH"
 PATH="/home/rudi/.dotnet/tools:$PATH"
 PATH="$HOME/.claude/local:$PATH"
+PATH="$HOME/.local/bin:$PATH"
 
 # Add flyctl to path
 FLYCTL_INSTALL="/home/rudi/.fly"
