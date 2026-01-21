@@ -69,7 +69,6 @@ require('lazy').setup({
 
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter', cmd = 'TSUpdate' },
-    'nvim-treesitter/playground',
 
     {
         "dstein64/vim-startuptime",
