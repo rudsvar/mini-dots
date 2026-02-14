@@ -21,7 +21,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Try nushell and fish
 if [[ $- == *i* ]]; then
-    if [ -x "$(which fish)" ]; then
+    if [ -x "$(which fish)" ] && [ -z "$CLAUDECODE" ]; then
         exec fish
     fi
 
