@@ -36,13 +36,12 @@ client.background       #ffffff
 
 # Gaps
 smart_gaps on
-gaps inner 10
+gaps inner 5
 gaps outer 0
 
-default_border pixel 2
+default_border pixel 0
 
 # Brightness
-bindsym Print exec mkdir -p $HOME/Pictures/Screenshots && grim -g "$(slurp)" - | tee $HOME/Pictures/Screenshots/$(date +"%Y-%m-%d-%H:%M:%S.png") | wl-copy -t image/png
 bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
 
@@ -58,9 +57,11 @@ bindsym XF86AudioPrev        exec --no-startup-id playerctl -p spotify previous
 # Basics:
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-bindsym $mod+space exec $menu
+bindsym $mod+d exec $menu
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exit
+bindsym Print exec sh -c 'mkdir -p "$HOME/Pictures/Screenshots" && f="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d-%H:%M:%S).png" && grim - | tee "$f" | wl-copy -t image/png && notify-send "Screenshot" "Saved to $f and copied to clipboard"'
+bindsym $mod+Shift+s exec sh -c 'mkdir -p "$HOME/Pictures/Screenshots" && f="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d-%H:%M:%S).png" && grim -g "$(slurp)" - | tee "$f" | wl-copy -t image/png && notify-send "Screenshot" "Saved to $f and copied to clipboard"'
 
 # Moving around:
 bindsym $mod+$left focus left
@@ -105,8 +106,8 @@ bindsym $mod+g splith
 bindsym $mod+v splitv
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
-# bindsym $mod+Shift+space floating toggle
-# bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 floating_modifier $mod normal
@@ -129,5 +130,19 @@ bar {
     inactive_workspace #0f0f0f #0a0a0a #333333
   }
 }
+
+# Startup apps
+assign [class="Google-chrome"] workspace $ws1
+assign [app_id="kitty"] workspace $ws2
+assign [class="discord"] workspace $ws3
+assign [class="Spotify"] workspace $ws3
+assign [class="steam"] workspace $ws4
+
+exec_always mako
+exec google-chrome-stable
+exec kitty
+exec steam
+exec discord
+exec spotify
 
 include /etc/sway/config.d/*
