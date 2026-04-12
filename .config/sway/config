@@ -60,6 +60,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exit
+bindsym $mod+Ctrl+q exec swaylock-blur
 bindsym Print exec sh -c 'mkdir -p "$HOME/Pictures/Screenshots" && f="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d-%H:%M:%S).png" && grim - | tee "$f" | wl-copy -t image/png && notify-send "Screenshot" "Saved to $f and copied to clipboard"'
 bindsym $mod+Shift+s exec sh -c 'mkdir -p "$HOME/Pictures/Screenshots" && f="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d-%H:%M:%S).png" && grim -g "$(slurp)" - | tee "$f" | wl-copy -t image/png && notify-send "Screenshot" "Saved to $f and copied to clipboard"'
 
@@ -139,6 +140,11 @@ assign [class="Spotify"] workspace $ws3
 assign [class="steam"] workspace $ws4
 
 exec_always mako
+exec swayidle -w \
+    timeout 300 'swaylock-blur' \
+    timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock-blur'
 exec google-chrome-stable
 exec kitty
 exec steam

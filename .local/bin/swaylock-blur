@@ -1,0 +1,6 @@
+#!/bin/bash
+tmp=$(mktemp /tmp/swaylock-XXXXXX.png)
+grim "$tmp"
+convert "$tmp" -filter Gaussian -blur 0x8 "$tmp"
+swaylock -f -i "$tmp"
+rm "$tmp"
