@@ -13,7 +13,7 @@ end
 if status is-interactive
 and not set -q TMUX
 and command -sq tmux
-and [ "$uname" = "Darwin" -o "$DISPLAY" != "" ]
+and [ "$uname" = "Darwin" -o "$DISPLAY" != "" -o "$WAYLAND_DISPLAY" != "" ]
 and [ "$TERM_PROGRAM" != "vscode" ]
 and [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]
     exec tmux new-session

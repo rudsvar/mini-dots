@@ -12,7 +12,7 @@ set $menu rofi -show drun
 
 input "*" {
   xkb_layout us,no
-  xkb_options grp:toggle,grp:ctrl_space_toggle,caps:escape
+  xkb_options grp:toggle,grp:win_space_toggle,caps:escape
   repeat_delay 250
   repeat_rate 40
   tap enabled
@@ -134,10 +134,10 @@ bar {
 
 # Startup apps
 assign [class="Google-chrome"] workspace $ws1
-assign [app_id="kitty"] workspace $ws2
-assign [class="discord"] workspace $ws3
-assign [class="Spotify"] workspace $ws3
-assign [class="steam"] workspace $ws4
+assign [app_id="kitty"] workspace $ws1
+assign [class="discord"] workspace $ws2
+assign [class="Spotify"] workspace $ws2
+assign [class="steam"] workspace $ws3
 
 exec_always mako
 exec swayidle -w \
