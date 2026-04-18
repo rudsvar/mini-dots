@@ -6,7 +6,7 @@ interval=1
 color=#aafaaa
 
 [weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo "⛅"
+command=echo "⛅ $(curl -Ss 'https://wttr.in/?format=%t')"
 interval=3600
 color=#aaaafa
 
