@@ -24,6 +24,16 @@ color=#fafafa
 command=~/scripts/updates.sh
 interval=1
 
+[wifi]
+command=echo "🛜 $(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1 || echo 'disconnected') $(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1)"
+interval=10
+color=#aafafa
+
+[vpn]
+command=active=$(for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(":","",$2); n=$2} /wireguard/{print n}'); do ip link show "$i" | grep -q 'UP' && echo "$i $(ip -4 -o addr show "$i" 2>/dev/null | awk '{print $4}' | cut -d/ -f1)"; done); [ -n "$active" ] && echo "🔒 $(echo $active | paste -sd, -)" || echo "🔓 off"
+interval=5
+color=#fadfaa
+
 [volume]
 command=echo "🔊 $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1)"
 interval=1
