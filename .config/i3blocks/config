@@ -24,6 +24,11 @@ color=#fafafa
 command=~/scripts/updates.sh
 interval=1
 
+[volume]
+command=echo "🔊 $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1)"
+interval=1
+color=#faaaaa
+
 [date]
 command=echo "📆 $(date '+%A %d %B')"
 interval=5
