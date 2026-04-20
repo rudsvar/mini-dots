@@ -132,22 +132,11 @@ bar {
   }
 }
 
-# Startup apps
-assign [class="firefox"] workspace $ws1
-assign [app_id="kitty"] workspace $ws2
-assign [class="discord"] workspace $ws2
-assign [class="steam"] workspace $ws3
-
 exec_always mako
 exec swayidle -w \
     timeout 1800 'swaylock-blur' \
     timeout 2100 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
     before-sleep 'swaylock-blur'
-exec firefox
-exec kitty
-exec steam
-exec discord
-exec spotify
 
 include /etc/sway/config.d/*
