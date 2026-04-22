@@ -34,6 +34,11 @@ command=active=$(for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(":","",$2); n
 interval=5
 color=#fadfaa
 
+[bluetooth]
+command=if bluetoothctl show | grep -q 'Powered: yes'; then dev=$(bluetoothctl -- devices Connected 2>/dev/null | head -1 | cut -d' ' -f3-); echo "🦷 ${dev:-on}"; else echo "🦷 off"; fi
+interval=1
+color=#aaaaff
+
 [volume]
 command=echo "🔊 $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1)"
 interval=1
