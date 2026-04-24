@@ -6,7 +6,7 @@ interval=1
 color=#aafaaa
 
 [weather]
-command=echo "⛅ $(curl -Ss 'https://wttr.in/?format=%t')"
+command=~/scripts/weather.sh
 interval=3600
 color=#aaaafa
 
