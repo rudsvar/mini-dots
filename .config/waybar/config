@@ -1,12 +1,12 @@
 {
+    "name": "main",
     "layer": "top",
     "position": "bottom",
-    "modules-left": ["sway/workspaces"],
+    "modules-left": ["sway/workspaces", "custom/updates", "custom/spotify"],
+    "modules-center": ["sway/window"],
     "modules-right": [
-        "custom/spotify",
         "custom/weather",
         "custom/disk",
-        "custom/updates",
         "custom/wifi",
         "custom/vpn",
         "custom/bluetooth",
@@ -16,14 +16,22 @@
     ],
 
     "sway/workspaces": {
-        "format": "{name}"
+        "format": "{name} {windows}",
+        "format-window-separator": " · ",
+        "window-rewrite-default": "{app_id}",
+        "window-rewrite": {
+            "firefox": "firefox",
+            "kitty": "kitty",
+            "spotify": "spotify",
+            "thunar": "files",
+            "pavucontrol": "audio",
+            "org.gnome.Nautilus": "files"
+        }
     },
 
-    "custom/spotify": {
-        "exec": "~/scripts/spotify.sh",
-        "exec-if": "playerctl -p spotify status 2>/dev/null",
-        "interval": 1,
-        "format": "🎶 <i>{}</i>"
+    "sway/window": {
+        "format": "{}",
+        "max-length": 80
     },
 
     "custom/updates": {
@@ -33,13 +41,19 @@
         "on-click": "kitty -e fish -C 'echo paru -Syu && paru -Syu'"
     },
 
+    "custom/spotify": {
+        "exec": "~/scripts/spotify.sh",
+        "interval": 1,
+        "format": "🎶 <i>{}</i>"
+    },
+
     "custom/wifi": {
-        "exec": "echo \"🛜 $(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1 || echo 'disconnected') $(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | paste -sd' ' -)\"",
+        "exec": "ssid=$(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1); ip=$(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1); echo \"🛜 ${ssid:-disconnected} (${ip:-none})\"",
         "interval": 10
     },
 
     "custom/vpn": {
-        "exec": "active=$(for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(\":\",\"\",$2); n=$2} /wireguard/{print n}'); do ip link show \"$i\" | grep -q 'UP' && echo \"$i $(ip -4 -o addr show \"$i\" 2>/dev/null | awk '{print $4}' | cut -d/ -f1)\"; done); [ -n \"$active\" ] && echo \"🔒 $(echo $active | paste -sd, -)\" || echo \"🔓 off\"",
+        "exec": "out=''; for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(\":\",\"\",$2); n=$2} /wireguard/{print n}'); do ip link show \"$i\" | grep -q 'UP' && addr=$(ip -4 -o addr show \"$i\" 2>/dev/null | awk '{print $4}' | cut -d/ -f1) && out=\"${out:+$out, }$i ($addr)\"; done; [ -n \"$out\" ] && echo \"🔒 $out\" || echo \"🔓 off\"",
         "interval": 5
     },
 

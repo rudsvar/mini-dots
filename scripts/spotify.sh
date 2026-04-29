@@ -8,4 +8,4 @@ fi
 title=$(playerctl -p spotify metadata xesam:title)
 artist=$(playerctl -p spotify metadata xesam:artist)
 
-echo "$status ‹$title› by $artist"
+echo "$status \"$title\" by $artist"
