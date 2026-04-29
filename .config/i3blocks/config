@@ -25,7 +25,7 @@ command=~/scripts/updates.sh
 interval=1
 
 [wifi]
-command=echo "🛜 $(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1 || echo 'disconnected') $(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1)"
+command=echo "🛜 $(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1 || echo 'disconnected') $(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | paste -sd' ' -)"
 interval=10
 color=#aafafa
 
