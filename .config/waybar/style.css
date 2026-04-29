@@ -8,12 +8,12 @@
 }
 
 window#waybar {
-    background-color: rgba(12, 12, 12, 0.75);
+    background-color: transparent;
     color: #777777;
 }
 
 #workspaces button {
-    color: #333333;
+    color: #4a4a4a;
     background-color: transparent;
     border: none;
     padding: 0 4px;
