@@ -1,0 +1,51 @@
+* {
+    font-family: "DejaVu Sans Mono";
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0 6px;
+}
+
+window#waybar {
+    background-color: #0c0c0c;
+    color: #777777;
+}
+
+#workspaces button {
+    color: #333333;
+    background-color: #0a0a0a;
+    border: 1px solid #333333;
+    padding: 0 4px;
+    margin: 1px 1px;
+}
+
+#workspaces button.focused {
+    background-color: #0a0a0a;
+    border-color: #333333;
+}
+
+#workspaces button:not(.focused) {
+    border-color: #0f0f0f;
+}
+
+.modules-right label,
+.modules-right button {
+    border-left: 1px solid #333333;
+    padding: 0 12px;
+}
+
+.modules-right > widget:first-child > label,
+.modules-right > widget:first-child > button {
+    border-left: none;
+}
+
+#custom-spotify   { color: #aafaaa; }
+#custom-weather   { color: #aaaafa; }
+#custom-disk      { color: #fafafa; }
+#custom-wifi      { color: #aafafa; }
+#custom-vpn       { color: #fadfaa; }
+#custom-bluetooth { color: #aaaaff; }
+#custom-volume    { color: #faaaaa; }
+#clock.date       { color: #9c88a6; }
+#clock.time       { color: #a6889f; }

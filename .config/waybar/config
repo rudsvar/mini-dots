@@ -1,0 +1,74 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "modules-left": ["sway/workspaces"],
+    "modules-right": [
+        "custom/spotify",
+        "custom/weather",
+        "custom/disk",
+        "custom/updates",
+        "custom/wifi",
+        "custom/vpn",
+        "custom/bluetooth",
+        "custom/volume",
+        "clock#date",
+        "clock#time"
+    ],
+
+    "sway/workspaces": {
+        "format": "{name}"
+    },
+
+    "custom/spotify": {
+        "exec": "~/scripts/spotify.sh",
+        "exec-if": "playerctl -p spotify status 2>/dev/null",
+        "interval": 1,
+        "format": "🎶 <i>{}</i>"
+    },
+
+    "custom/updates": {
+        "exec": "n=$(checkupdates 2>/dev/null | wc -l); echo \"🗞️ $n updates available\"",
+        "exec-if": "checkupdates 2>/dev/null | grep -q .",
+        "interval": 300,
+        "on-click": "kitty -e fish -C 'echo paru -Syu && paru -Syu'"
+    },
+
+    "custom/wifi": {
+        "exec": "echo \"🛜 $(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1 || echo 'disconnected') $(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | paste -sd' ' -)\"",
+        "interval": 10
+    },
+
+    "custom/vpn": {
+        "exec": "active=$(for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(\":\",\"\",$2); n=$2} /wireguard/{print n}'); do ip link show \"$i\" | grep -q 'UP' && echo \"$i $(ip -4 -o addr show \"$i\" 2>/dev/null | awk '{print $4}' | cut -d/ -f1)\"; done); [ -n \"$active\" ] && echo \"🔒 $(echo $active | paste -sd, -)\" || echo \"🔓 off\"",
+        "interval": 5
+    },
+
+    "custom/bluetooth": {
+        "exec": "if bluetoothctl show | grep -q 'Powered: yes'; then dev=$(bluetoothctl -- devices Connected 2>/dev/null | head -1 | cut -d' ' -f3-); echo \"🦷 ${dev:-on}\"; else echo \"🦷 off\"; fi",
+        "interval": 1
+    },
+
+    "custom/volume": {
+        "exec": "echo \"🔊 $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\\d+%' | head -1)\"",
+        "interval": 1
+    },
+
+    "custom/disk": {
+        "exec": "df -h | awk 'NR>1 && $NF==\"/\" {print \"💽 \" $1 \" - \" $5 \" of \" $2}'",
+        "interval": 5
+    },
+
+    "custom/weather": {
+        "exec": "~/scripts/weather.sh",
+        "interval": 3600
+    },
+
+    "clock#date": {
+        "format": "📆 {:%A %d %B}"
+    },
+
+    "clock#time": {
+        "format": "🕙 {:%H:%M}",
+        "interval": 1
+    }
+}

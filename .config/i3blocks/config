@@ -4,6 +4,7 @@
 command=~/scripts/spotify.sh
 interval=1
 color=#aafaaa
+markup=pango
 
 [weather]
 command=~/scripts/weather.sh

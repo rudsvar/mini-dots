@@ -1,13 +1,11 @@
 #!/usr/bin/env sh
 
-printf "🎶 "
-
-status=$(playerctl -p spotify status)
-if [[ $status = "" ]]; then
-    exit 0
+status=$(playerctl -p spotify status 2>/dev/null)
+if [ -z "$status" ]; then
+    exit 1
 fi
 
 title=$(playerctl -p spotify metadata xesam:title)
 artist=$(playerctl -p spotify metadata xesam:artist)
 
-echo "$status \"$title\" by $artist"
+echo "$status ‹$title› by $artist"
