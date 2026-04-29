@@ -79,7 +79,3 @@ alias ex 'fd . --type f | fzf --height 50% --reverse | xargs -r -I {} $EDITOR "{
 if test -f ~/.claude/local/claude;
     alias claude="~/.claude/local/claude"
 end
-
-if test (tty) = /dev/tty1
-    exec sway
-end
