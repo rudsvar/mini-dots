@@ -2,31 +2,42 @@
     "name": "main",
     "layer": "top",
     "position": "bottom",
-    "modules-left": ["sway/workspaces", "custom/updates", "custom/spotify"],
+    "modules-left": ["sway/workspaces", "custom/volume", "custom/updates", "custom/bluetooth", "custom/spotify"],
     "modules-center": ["sway/window"],
     "modules-right": [
         "custom/weather",
         "custom/disk",
         "custom/wifi",
         "custom/vpn",
-        "custom/bluetooth",
-        "custom/volume",
         "clock#date",
         "clock#time"
     ],
+
+    "custom/spacer": {
+        "format": " ",
+        "interval": "once"
+    },
 
     "sway/workspaces": {
         "format": "{name} {windows}",
         "format-window-separator": " · ",
         "window-rewrite-default": "{app_id}",
         "window-rewrite": {
-            "firefox": "firefox",
-            "kitty": "kitty",
-            "spotify": "spotify",
-            "thunar": "files",
-            "pavucontrol": "audio",
-            "org.gnome.Nautilus": "files"
+            "class<firefox>": "firefox",
+            "class<kitty>": "kitty",
+            "class<org.telegram.desktop>": "telegram",
+            "class<spotify>": "spotify",
+            "class<thunar>": "files",
+            "class<pavucontrol>": "audio",
+            "class<vlc>": "vlc",
+            "class<gimp.*>": "gimp",
+            "class<code.*>": "vscode"
         }
+    },
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 80
     },
 
     "sway/window": {
@@ -48,12 +59,12 @@
     },
 
     "custom/wifi": {
-        "exec": "ssid=$(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1); ip=$(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1); echo \"🛜 ${ssid:-disconnected} (${ip:-none})\"",
+        "exec": "ssid=$(iw dev wlan0 link | awk -F': ' '/SSID/ {print $2}' | head -1); ip=$(ip -4 -o addr show wlan0 2>/dev/null | awk '{print $4}' | cut -d/ -f1); echo \"🛜 ${ssid:-disconnected} ${ip:-}\"",
         "interval": 10
     },
 
     "custom/vpn": {
-        "exec": "out=''; for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(\":\",\"\",$2); n=$2} /wireguard/{print n}'); do ip link show \"$i\" | grep -q 'UP' && addr=$(ip -4 -o addr show \"$i\" 2>/dev/null | awk '{print $4}' | cut -d/ -f1) && out=\"${out:+$out, }$i ($addr)\"; done; [ -n \"$out\" ] && echo \"🔒 $out\" || echo \"🔓 off\"",
+        "exec": "out=''; for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(\":\",\"\",$2); n=$2} /wireguard/{print n}'); do ip link show \"$i\" | grep -q 'UP' && addr=$(ip -4 -o addr show \"$i\" 2>/dev/null | awk '{print $4}' | cut -d/ -f1) && out=\"${out:+$out, }$i $addr\"; done; [ -n \"$out\" ] && echo \"🔒 $out\" || echo \"🔓 off\"",
         "interval": 5
     },
 
@@ -68,8 +79,10 @@
     },
 
     "custom/disk": {
-        "exec": "df -h | awk 'NR>1 && $NF==\"/\" {print \"💽 \" $1 \" - \" $5 \" of \" $2}'",
-        "interval": 5
+        "exec": "~/scripts/disk.sh",
+        "return-type": "json",
+        "interval": 30,
+        "tooltip": true
     },
 
     "custom/weather": {

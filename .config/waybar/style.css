@@ -12,6 +12,11 @@ window#waybar {
     color: #777777;
 }
 
+/* Workspaces */
+#workspaces {
+    padding: 0;
+}
+
 #workspaces button {
     color: #4a4a4a;
     background-color: transparent;
@@ -24,20 +29,7 @@ window#waybar {
     color: #999999;
 }
 
-#workspaces {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.modules-right > widget:last-child > label {
-    padding-right: 0;
-}
-
-#window {
-    color: #555555;
-    font-style: italic;
-}
-
+/* Right modules */
 .modules-right label,
 .modules-right button {
     border-left: 1px solid #333333;
@@ -49,20 +41,30 @@ window#waybar {
     border-left: none;
 }
 
-#custom-updates {
-    border-left: 1px solid #333333;
-    padding: 0 12px;
-    margin-left: 8px;
+.modules-right > widget:last-child > label {
+    padding-right: 0;
 }
 
+/* Left modules */
+#custom-volume,
+#custom-updates,
+#custom-bluetooth,
 #custom-spotify {
     border-left: 1px solid #333333;
     padding: 0 12px;
 }
 
+/* Center */
+#window {
+    color: #555555;
+    font-style: italic;
+}
+
+/* Colors */
 #custom-spotify   { color: #aafaaa; }
 #custom-weather   { color: #aaaafa; }
 #custom-disk      { color: #fafafa; }
+#custom-disk.warning { color: #ff6666; }
 #custom-wifi      { color: #aafafa; }
 #custom-vpn       { color: #fadfaa; }
 #custom-bluetooth { color: #aaaaff; }
