@@ -6,11 +6,6 @@ interval=1
 color=#aafaaa
 markup=pango
 
-[weather]
-command=~/scripts/weather.sh
-interval=3600
-color=#aaaafa
-
 [disk]
 command=df -h | rg " /\$" | awk '{ print "💽 " $1 " - " $5 " of " "" $2 }'
 interval=5
