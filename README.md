@@ -33,25 +33,14 @@ Hetzner Storage Box: subaccount `u587634-sub2`, mounted via SSHFS at `/mnt/hetzn
 
 Btrfs snapshots managed by snapper (`.snapshots` subvolume). Don't delete snapshots without checking snapper config.
 
-## Docker
+## Local services
 
-Compose in `~/git/glacies/`. Currently one service:
-
-| Service       | Purpose                                      |
-|---------------|----------------------------------------------|
-| beszel-agent  | Host metrics agent, reports to cruor beszel hub |
+Compose files in `~/services/`. Deploy with `docker compose -f <name>.yml up -d` from the service dir.
 
 ## Ollama
 
-Native `ollama.service` (systemd). Uses AMD GPU via ROCm. Keep-alive override: 15 min.
+Native `ollama.service` (systemd), AMD GPU via ROCm. Drop-in at `/etc/systemd/system/ollama.service.d/override.conf`.
 
-Drop-in at `/etc/systemd/system/ollama.service.d/override.conf`.
+## Homelab
 
-## Homelab network
-
-All heavy services run on **cruor** (Docker Swarm, `~/services/`). See `~/.claude/hosts/cruor.md` for full detail.
-
-- DNS: AdGuard on cruor (`192.168.10.126`)
-- Reverse proxy: Traefik on cruor
-- VPN: wg-easy on cruor, endpoint `nex.rudsvar.xyz`, subnet `10.9.0.0/24`
-- Monitoring: Beszel hub on cruor, agents on all hosts
+Heavy services run on **cruor** (Docker Swarm). See `~/.claude/CLAUDE.md` and `~/.claude/hosts/` for operational details.
