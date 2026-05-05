@@ -22,13 +22,13 @@ Supplements `~/.claude/CLAUDE.md` (global rules). Per-host details are in `~/.cl
 |-------|----------------------|-------------------|----------------------|
 | cruor | `cruor`              | `~/services/`     | Docker Swarm         |
 | pi    | `pi.rudsvar.xyz`     | `~/services/`     | docker-compose v1.25 |
-| fumus | `fumus.rudsvar.xyz`  | `~/director/`     | Docker Swarm         |
+| fumus | `fumus.rudsvar.xyz`  | `~/services/`     | plain Compose        |
 
-Deploy cruor/fumus: `docker stack deploy -c <name>.yml <name>` from the service dir.
+Deploy cruor: `docker stack deploy -c <name>.yml <name>` from the service dir.
+Deploy fumus: `cd ~/services/<service> && docker compose -f <service>.yml up -d`.
 Deploy pi: `docker-compose -f <name>.yml up -d` from the service dir.
 
 ## Where to find things
 
 - Host details, disk layout, running services, caveats: `~/.claude/hosts/<name>.md`
-- Homelab migration plan: `~/plan.md`
 - Auto-memory: `~/.claude/projects/-home-rudi/memory/MEMORY.md`
