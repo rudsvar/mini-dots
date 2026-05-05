@@ -2,6 +2,12 @@
 
 Supplements `~/.claude/CLAUDE.md` (global rules). Per-host details are in `~/.claude/hosts/<name>.md` — read the relevant one before working on a remote host, don't load all eagerly.
 
+## What goes where
+
+- **README.md** — human-facing (shown on GitHub): hardware, storage layout, setup/clone instructions. Stable facts only; omit service lists or anything that changes often.
+- **CLAUDE.md** — Claude-facing: pointers to where things live, deploy commands, operational rules. Prefer "check X" over copying data that will rot. Keep concise to save context.
+- **`~/.claude/hosts/<name>.md`** — per-host operational detail: role, disk layout, running services, what to be careful with. Update when services change.
+
 ## This machine
 
 - Services: `~/services/` — plain Docker Compose
