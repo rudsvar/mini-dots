@@ -1,7 +1,7 @@
 {
     "name": "main",
     "layer": "top",
-    "position": "bottom",
+    "position": "top",
     "modules-left": ["sway/workspaces", "custom/volume", "custom/updates", "custom/bluetooth", "custom/spotify"],
     "modules-center": ["sway/window"],
     "modules-right": [
