@@ -8,8 +8,10 @@
 }
 
 window#waybar {
-    background-color: transparent;
-    color: #777777;
+    background-color: rgba(10, 12, 20, 0.88);
+    color: rgba(220, 230, 255, 1.0);
+    padding-top: 3px;
+    padding-bottom: 1px;
 }
 
 /* Workspaces */
@@ -18,7 +20,7 @@ window#waybar {
 }
 
 #workspaces button {
-    color: #4a4a4a;
+    color: rgba(140, 160, 200, 0.8);
     background-color: transparent;
     border: none;
     padding: 0 4px;
@@ -26,13 +28,13 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    color: #999999;
+    color: rgba(80, 160, 255, 1.0);
 }
 
 /* Right modules */
 .modules-right label,
 .modules-right button {
-    border-left: 1px solid #333333;
+    border-left: 1px solid rgba(80, 160, 255, 0.4);
     padding: 0 12px;
 }
 
@@ -50,25 +52,24 @@ window#waybar {
 #custom-updates,
 #custom-bluetooth,
 #custom-spotify {
-    border-left: 1px solid #333333;
+    border-left: 1px solid rgba(80, 160, 255, 0.4);
     padding: 0 12px;
 }
 
 /* Center */
 #window {
-    color: #555555;
+    color: rgba(140, 160, 200, 0.8);
     font-style: italic;
 }
 
 /* Colors */
-#custom-spotify   { color: #aafaaa; }
-#custom-weather   { color: #aaaafa; }
-#custom-disk      { color: #fafafa; }
+#custom-spotify   { color: #a0f0c8; }
+#custom-disk      { color: rgba(220, 230, 255, 1.0); }
 #custom-disk.warning { color: #ff6666; }
-#custom-wifi      { color: #aafafa; }
-#custom-vpn       { color: #fadfaa; }
-#custom-bluetooth { color: #aaaaff; }
-#custom-volume    { color: #faaaaa; }
-#clock.date       { color: #9c88a6; }
-#clock.time       { color: #a6889f; }
-#custom-updates   { color: #fafaaa; }
+#custom-wifi      { color: #80d8ff; }
+#custom-vpn       { color: #e8d080; }
+#custom-bluetooth { color: rgba(80, 160, 255, 1.0); }
+#custom-volume    { color: #f080a0; }
+#clock.date       { color: #8898c8; }
+#clock.time       { color: #a098c8; }
+#custom-updates   { color: #e0e890; }
