@@ -35,7 +35,7 @@ client.placeholder      #ffffff #ffffff #ffffff #ffffff #ffffff
 client.background       #ffffff
 
 # Gaps
-smart_gaps on
+smart_gaps off
 gaps inner 5
 gaps outer 0
 
