@@ -11,9 +11,10 @@ Supplements `~/.claude/CLAUDE.md` (global rules). Per-host details are in `~/.cl
 ## This machine
 
 - Services: `~/services/` — plain Docker Compose
-- Dotfiles: `~/.cfg` bare repo → `github.com/rudsvar/glacies`, alias `conf`
-  - Everything in `$HOME` is gitignored by default — add files explicitly with `conf add -f <file>`
-  - This prevents accidental inclusion of secrets; never use `conf add -A` or `conf add .`
+- Dotfiles: `~/.cfg` bare repo → `github.com/rudsvar/glacies`, alias `conf` (fish only)
+  - The `conf` alias is not available in bash/tool sessions — use `git --git-dir="$HOME/.cfg" --work-tree="$HOME"` directly
+  - Everything in `$HOME` is gitignored by default — always stage with `-f`, e.g. `git --git-dir="$HOME/.cfg" --work-tree="$HOME" add -f <file>`
+  - This prevents accidental inclusion of secrets; never use `-A` or `.`
 - Shell: fish
 
 ## Homelab at a glance
