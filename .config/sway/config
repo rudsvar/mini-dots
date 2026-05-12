@@ -36,8 +36,8 @@ client.background       #ffffff
 
 # Gaps
 smart_gaps off
-gaps inner 5
-gaps outer 0
+gaps inner 10
+gaps outer 5
 
 default_border pixel 0
 
