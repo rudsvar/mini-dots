@@ -1,6 +1,7 @@
 # cruor — LAN workhorse (homelab server)
 
-- **SSH:** `rudi@cruor.rudsvar.xyz` (SSH alias `cruor` also works).
+- **SSH:** `rudi@cruor.rudsvar.xyz`
+- **Local mount:** `/mnt/cruor` — SSHFS automount from glacies, mounts on access. Edit files directly via this path instead of SSHing in.
 - **Hardware:** MSI MS-7751, Intel i7-3770K (2012), 8 GiB RAM + 3.8 GiB swap. Has Wi-Fi.
 - **OS:** Arch Linux rolling.
 - **Disks:** `/` ext4 **109 GB** (tight), `/mnt/1tbhdd` **ZFS pool (`tank`) 880 GB** (bulk).
