@@ -17,6 +17,13 @@ Supplements `~/.claude/CLAUDE.md` (global rules). Per-host details are in `~/.cl
   - This prevents accidental inclusion of secrets; never use `-A` or `.`
 - Shell: fish
 
+## ~/.cfg bare repo — applies to all hosts
+
+**cruor, pi, fumus, and umbra all use the same `~/.cfg` bare repo pattern** to track dotfiles and `~/services/`. This means:
+- To commit service files on a remote host, SSH in and use `git --git-dir="$HOME/.cfg" --work-tree="$HOME" add -f <file>` then commit
+- Do not `git init` inside `~/services/<name>/` — the bare repo is the VCS for these files
+- The `conf` alias works in fish sessions; use the full git command in scripts/tools
+
 ## Homelab at a glance
 
 | Host  | SSH                  | Services          | Orchestration        |
