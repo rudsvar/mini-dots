@@ -26,11 +26,12 @@ Supplements `~/.claude/CLAUDE.md` (global rules). Per-host details are in `~/.cl
 
 ## Homelab at a glance
 
-| Host  | SSH                          | Mount        | Services          | Orchestration        |
-|-------|------------------------------|--------------|-------------------|----------------------|
-| cruor | `rudi@cruor.rudsvar.xyz`     | `/mnt/cruor` | `~/services/`     | Docker Swarm         |
-| pi    | `rudi@pi.rudsvar.xyz`        | `/mnt/pi`    | `~/services/`     | docker-compose v1.25 |
-| fumus | `rudi@fumus.rudsvar.xyz`     | `/mnt/fumus` | `~/services/`     | plain Compose        |
+| Host   | SSH                           | Mount          | Services          | Orchestration        |
+|--------|-------------------------------|----------------|-------------------|----------------------|
+| cruor  | `rudi@cruor.rudsvar.xyz`      | `/mnt/cruor`   | `~/services/`     | Docker Swarm manager |
+| guthix | `rudi@guthix.rudsvar.xyz`     | —              | `~/services/`     | Docker Swarm worker  |
+| pi     | `rudi@pi.rudsvar.xyz`         | `/mnt/pi`      | `~/services/`     | docker-compose v1.25 |
+| fumus  | `rudi@fumus.rudsvar.xyz`      | `/mnt/fumus`   | `~/services/`     | plain Compose        |
 
 Mount points are SSHFS automounts (systemd, defined in `/etc/fstab`) — they mount on first access and work transparently with Read/Edit/Write tools. If a mount seems stale, run `sudo systemctl restart mnt-<host>.automount`.
 

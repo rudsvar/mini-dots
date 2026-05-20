@@ -2,12 +2,13 @@
 
 - **SSH:** `rudi@cruor.rudsvar.xyz`
 - **Local mount:** `/mnt/cruor` — SSHFS automount from glacies, mounts on access. Edit files directly via this path instead of SSHing in.
-- **Hardware:** MSI MS-7751, Intel i7-3770K (2012), 8 GiB RAM + 3.8 GiB swap. Has Wi-Fi.
+- **Hardware:** MSI MS-7751, Intel i7-3770K (2012), 8 GiB DDR3 @ 1600 MT/s + 3.8 GiB swap. Has Wi-Fi.
 - **OS:** Arch Linux rolling.
 - **Disks:** `/` ext4 **109 GB** (tight), `/mnt/1tbhdd` **ZFS pool (`tank`) 880 GB** (bulk).
-- **Role:** Docker Swarm host for the self-hosted stack.
+- **Role:** Docker Swarm host for the self-hosted stack. Some services run as plain `docker compose` instead of Swarm stacks where Swarm overlay networking is a poor fit (e.g. the Forgejo runner needs to be on the same bridge as its job containers).
 - **Stacks live at:** `~/services/` on cruor — **versioned, source of truth.** Deploy from there. Do **not** create stacks under `~/git/stacks/` or other ad-hoc paths.
 - **Version control:** `~/services/` files are tracked in cruor's `~/.cfg` bare repo (same pattern as glacies). To commit: SSH to cruor, then `git --git-dir="$HOME/.cfg" --work-tree="$HOME" add -f <file>` and commit. Do **not** `git init` inside a service dir.
+- **Forgejo runner:** runs as plain compose (`~/services/forgejo/runner.yml`, `docker compose -f runner.yml up -d`), NOT as a Swarm service. Reason: runner must be on `runner-net` bridge (172.19.0.0/16) so its cache server is reachable from CI job containers. The main Forgejo app remains a Swarm stack (`forgejo.yml`).
 - **Services:** Immich (+ Postgres/Redis), Jellyfin, Sonarr / Radarr / Bazarr / Prowlarr, qBittorrent, Jellyseerr, Flaresolverr, Romm (+ MariaDB), Home Assistant, Grafana + Prometheus, **AdGuard (LAN DNS, 192.168.10.126)**, WireGuard (`wg-easy`), Traefik v3, Homepage, Open-WebUI + Ollama, Arcane, Factorio, rubot, ofelia (cron), llm-wiki, grand-exchange, **cloudflared** (Cloudflare tunnel connector, `~/services/cloudflared/`), **cloudflare-ddns** (updates `nex.rudsvar.xyz` A record every 5 min, `~/services/cloudflare-ddns/`).
 - **Custom app source locations:**
   - `grand-exchange`: source at `github.com/rudsvar/grand-exchange`, clone at `~/services/grand-exchange/app/`. No forgejo mirror yet — push to GitHub AND add forgejo remote to get CI builds. Makefile uses `cross` for arm builds.
