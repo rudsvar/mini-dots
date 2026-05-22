@@ -40,7 +40,6 @@ To deploy or change anything: push to the `homelab-k8s` repo on Forgejo → Argo
 | infisical      | Infisical + Postgres (5Gi PVC) + Redis; daily backup CronJob        |
 | kube-system    | Traefik (LB on :80/:443/:5432), CoreDNS, metrics-server, local-path |
 | ledger         | ledger app + Postgres (1Gi PVC); daily backup CronJob               |
-| ledger-dev     | ledger dev env (`:latest`, `imagePullPolicy: Always`); own Postgres  |
 | pgbouncer      | PgBouncer connection pooler (userlist: things, ledger, postgres)     |
 | postgres       | Standalone shared Postgres (5Gi PVC); admin password in secret      |
 | rabbitmq       | RabbitMQ + management UI (2Gi PVC); limits via ConfigMap            |
@@ -53,7 +52,6 @@ To deploy or change anything: push to the `homelab-k8s` repo on Forgejo → Argo
 - `kibana.guthix.rudsvar.xyz` — Kibana
 - `infisical.guthix.rudsvar.xyz` — Infisical
 - `ledger.guthix.rudsvar.xyz` — Ledger prod
-- `ledger.dev.guthix.rudsvar.xyz` — Ledger dev
 - `rabbitmq.guthix.rudsvar.xyz` — RabbitMQ management UI
 - `things.guthix.rudsvar.xyz` — Things
 - TCP IngressRoute on port 5432 — postgres via pgbouncer
