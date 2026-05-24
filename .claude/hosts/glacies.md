@@ -1,12 +1,10 @@
 # glacies — main workstation
 
-- **Hardware:** MSI MS-7D75, AMD Ryzen 7 7800X3D (8C/16T), 32 GiB DDR5 @ 6000 MT/s + 4 GiB swap.
-- **OS:** Arch Linux, btrfs root (466 GB), with snapshots (`/.snapshots` subvolume).
-- **Role:** primary desktop + dev machine. Where I write code, edit configs, and deploy to the other hosts from.
-- **Compose / stacks live at:** `~/git/glacies/` (this host's own services).
-- **Docker:** currently just `beszel-agent` locally — heavy stuff runs on cruor/fumus.
+- **Hardware:** MSI MS-7D75, AMD Ryzen 7 7800X3D (8C/16T), 32 GiB DDR5. AMD Radeon RX 7900 XTX.
+- **OS:** Arch Linux, btrfs root (~466 GB) with snapper snapshots (`/.snapshots`).
+- **Role:** primary desktop + dev machine. All other hosts are managed from here over SSH or via SSHFS mounts at `/mnt/<host>/`.
+- **Local services:** `~/services/` — check `docker compose ls` for what's running. Heavy workloads run on cruor/guthix.
+- **Dotfiles:** `~/.cfg` (mini-dots, shared) + `~/.glacies` (glacies-specific). Fish aliases: `conf` and `glacies`.
 - **Careful with:**
-  - Btrfs snapshots on `/.snapshots` — don't delete without checking snapper config.
-  - `~/git/` is the source of truth for a lot of infra; treat as precious.
-
-I usually work from here; other hosts are reached over SSH.
+  - Btrfs snapshots — don't delete without checking snapper config.
+  - `~/git/` holds infra repos; treat as precious.
