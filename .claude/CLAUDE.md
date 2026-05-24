@@ -50,7 +50,7 @@ All hosts behind Cloudflare tunnels (`cloudflared`) + Traefik where applicable; 
 | pi      | RPi, WireGuard + monitoring       | Raspbian 11    | `rudi@pi.rudsvar.xyz`        | `/mnt/pi`                  |
 | umbra   | Phone (not SSH-managed)           | —              | —                            | —                          |
 
-**Per-host details live in `~/.claude/hosts/<name>.md`. Read the relevant one on demand before working with that host** — don't load all five eagerly.
+**You may be running on any of these machines.** At the start of each session, check which host you're on (`hostname` or `uname -n`) and read `~/.claude/hosts/<hostname>.md` before doing any work. Don't assume you're on glacies.
 
 ## Dotfiles — bare repo pattern
 
