@@ -80,12 +80,17 @@ Runs as a k8s Deployment in the `forgejo-runner` namespace. Pod has two containe
 - `runner` — `data.forgejo.org/forgejo/runner:12`, capacity 2, labels `ubuntu-latest` / `ubuntu-22.04` / `debian-latest`
 - `dind` — `docker:27-dind` sidecar; both containers share `/var/run` via emptyDir so the runner uses the DinD socket
 
-Runner config (set by entrypoint at startup):
-- `network: "host"` — job containers and service containers use host networking (the DinD container's network namespace), so CI services are reachable at `127.0.0.1:<port>`
+Runner config is a static `config.yml` embedded in the `runner-entrypoint` ConfigMap. On startup the entrypoint substitutes `__POD_IP__` with the actual pod IP (injected via Downward API) and writes it to `/data/config.yml`. Key settings:
+- `network: ""` — runner creates a per-job Docker bridge network inside DinD; service containers (e.g. postgres) are reachable by service name (e.g. `postgres`), not `127.0.0.1`. This is what allows concurrent jobs without port conflicts.
 - `docker_host: "automount"` — Docker socket is mounted into job containers
-- Cache dir: `/data/actcache`; cache server bound to the pod's eth0 IP so job containers inside DinD can reach it
+- `capacity: 2` — two jobs run concurrently
+- Cache dir: `/data/actcache`; cache server bound to the pod IP so job containers inside DinD can reach it
 
-Managed via ArgoCD from the `homelab-k8s` repo. To change runner config, update the ConfigMap `runner-entrypoint` there.
+**Important:** CI workflows must use the service name as `DB_HOST`, not `127.0.0.1`. See things/ledger `.forgejo/workflows/ci.yml` for the pattern.
+
+**Do not use `network: "host"`** — it causes port 5432 conflicts between concurrent jobs sharing the same DinD daemon.
+
+To change runner config: update the `config.yml` key in the `runner-entrypoint` ConfigMap in `homelab-k8s`, push, then `kubectl rollout restart deployment/forgejo-runner -n forgejo-runner` on guthix (ArgoCD syncs the ConfigMap but won't restart the pod automatically).
 
 ## Notes
 
