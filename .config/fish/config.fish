@@ -1,4 +1,5 @@
 alias conf="git --git-dir=$HOME/.cfg --work-tree=$HOME"
+alias glacies="git --git-dir=$HOME/.glacies --work-tree=$HOME"
 
 set -x EDITOR nvim
 set -x VISUAL $EDITOR
