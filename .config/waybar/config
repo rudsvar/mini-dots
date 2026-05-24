@@ -63,7 +63,7 @@
     },
 
     "custom/vpn": {
-        "exec": "out=''; for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(\":\",\"\",$2); n=$2} /wireguard/{print n}'); do ip link show \"$i\" | grep -q 'UP' && addr=$(ip -4 -o addr show \"$i\" 2>/dev/null | awk '{print $4}' | cut -d/ -f1) && out=\"${out:+$out, }$i $addr\"; done; [ -n \"$out\" ] && echo \"🔒 $out\" || echo \"🔓 off\"",
+        "exec": "out=''; for i in $(ip -d link show | awk '/^[0-9]+:/{gsub(\":\",\"\",$2); n=$2} /wireguard/{print n}'); do ip link show \"$i\" | grep -q 'UP' && addr=$(ip -4 -o addr show dev \"$i\" 2>/dev/null | awk '{print $4}' | cut -d/ -f1) && out=\"${out:+$out, }$i $addr\"; done; [ -n \"$out\" ] && echo \"🔒 $out\" || echo \"🔓 off\"",
         "interval": 5
     },
 
