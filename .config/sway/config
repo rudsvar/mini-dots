@@ -20,12 +20,6 @@ input "*" {
   pointer_accel 0.3
 }
 
-output "DP-1" {
-  position 0 0
-  resolution 3440x1440@120Hz
-  background ~/Pictures/fishtank_nebula.png fill #111111
-}
-
 # Colors
 client.focused          #222222 #222222 #ffffff #222222 #222222
 client.focused_inactive #111111 #111111 #ffffff #111111 #111111
@@ -127,4 +121,5 @@ exec swayidle -w \
     timeout 3600 'systemctl suspend'
 
 
+include ~/.config/sway/conf.d/*
 include /etc/sway/config.d/*
