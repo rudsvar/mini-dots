@@ -38,6 +38,7 @@ scrape_configs:
           - '192.168.10.169:8001'
         labels:
           instance: guthix
+          cluster: guthix
 
   - job_name: argocd-server
     metrics_path: /api/v1/namespaces/argocd/services/argocd-server-metrics:8083/proxy/metrics
@@ -46,3 +47,4 @@ scrape_configs:
           - '192.168.10.169:8001'
         labels:
           instance: guthix
+          cluster: guthix
