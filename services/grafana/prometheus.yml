@@ -1,0 +1,48 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: node
+    static_configs:
+      - targets:
+          - '192.168.10.126:9100'
+          - '192.168.10.181:9100'
+          - '192.168.10.63:9100'
+          - '10.9.0.3:9100'
+        labels:
+          job: node
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '([^:]+):.*'
+        target_label: instance
+        replacement: '$1'
+
+  - job_name: smartctl
+    static_configs:
+      - targets:
+          - '192.168.10.126:9633'
+          - '192.168.10.181:9633'
+          - '192.168.10.63:9633'
+          - '10.9.0.3:9633'
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '([^:]+):.*'
+        target_label: instance
+        replacement: '$1'
+
+  - job_name: argocd
+    metrics_path: /api/v1/namespaces/argocd/services/argocd-metrics:8082/proxy/metrics
+    static_configs:
+      - targets:
+          - '192.168.10.169:8001'
+        labels:
+          instance: guthix
+
+  - job_name: argocd-server
+    metrics_path: /api/v1/namespaces/argocd/services/argocd-server-metrics:8083/proxy/metrics
+    static_configs:
+      - targets:
+          - '192.168.10.169:8001'
+        labels:
+          instance: guthix
