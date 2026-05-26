@@ -1,0 +1,11 @@
+[Unit]
+Description=kubectl proxy for Prometheus scraping
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/kubectl proxy --port=8001 --address=0.0.0.0 --accept-hosts=.*
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
