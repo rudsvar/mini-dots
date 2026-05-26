@@ -20,6 +20,8 @@ input "*" {
   pointer_accel 0.3
 }
 
+output * background ~/Pictures/fishtank_nebula.png fill
+
 output "DP-1" {
   position 0 0
   resolution 3440x1440@120Hz
