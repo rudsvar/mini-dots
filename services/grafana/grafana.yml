@@ -1,0 +1,85 @@
+services:
+  prometheus:
+    image: prom/prometheus:v3.11.1
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    deploy:
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+
+  grafana:
+    image: grafana/grafana:12.4.2
+    environment:
+      GF_SERVER_ROOT_URL: https://grafana.cruor.rudsvar.xyz
+    env_file:
+      - ./grafana.env
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./datasources.yml:/etc/grafana/provisioning/datasources/prometheus.yml:ro
+      - ./dashboard-provider.yml:/etc/grafana/provisioning/dashboards/provider.yml:ro
+      - ./node-exporter-full.json:/var/lib/grafana/dashboards/node-exporter-full.json:ro
+      - ./smartctl.json:/var/lib/grafana/dashboards/smartctl.json:ro
+      - ./argocd.json:/var/lib/grafana/dashboards/argocd.json:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - default
+      - traefik_net
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    deploy:
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik_traefik_net
+        - traefik.http.routers.grafana.rule=Host(`grafana.cruor.rudsvar.xyz`)
+        - traefik.http.routers.grafana.entrypoints=websecure
+        - traefik.http.routers.grafana.tls.certresolver=letsencrypt
+        - traefik.http.services.grafana.loadbalancer.server.port=3000
+
+volumes:
+  grafana_data:
+
+networks:
+  traefik_net:
+    external: true
+    name: traefik_traefik_net
