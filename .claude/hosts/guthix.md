@@ -28,7 +28,33 @@ After ConfigMap changes: `kubectl rollout restart deployment/forgejo-runner -n f
 
 ## Backups
 
-Borg to `/mnt/backup` (sdb). CronJobs run nightly — check schedules with `kubectl get cronjob -A`.
+Two Borg repos on `/mnt/backup` (sdb), separate:
+
+- **`/mnt/backup/borg`** — per-DB `pg_dump` archives, written by in-cluster CronJobs. Check schedules: `kubectl get cronjob -A`. Encrypted (passphrase in `borg-passphrase` k8s secret in `homelab` ns).
+- **`/mnt/backup/borg-cluster`** — nightly cold snapshot of `/var/lib/rancher/k3s` + `/etc/rancher/k3s` (+ `/etc/systemd/system/k3s.service.d` if present). Captures all PVCs atomically while k3s is stopped. **Unencrypted** (`--encryption=none`). Retention: 7 daily / 4 weekly / 6 monthly.
+
+### Cold-backup mechanism
+
+- Script: `/usr/local/bin/k3s-cold-backup.sh` (stops k3s → borg create → prune → compact → starts k3s).
+- Unit + timer: `/etc/systemd/system/k3s-cold-backup.{service,timer}`. Timer fires `03:00` daily, `Persistent=true`, 5min randomized delay.
+- **Downtime window ~5–10 min nightly** (mostly pod restart, not borg). All `*.guthix.rudsvar.xyz` services unreachable during it.
+- Logs: `journalctl -u k3s-cold-backup`.
+- Manual run: `sudo systemctl start k3s-cold-backup.service` (will incur the downtime — don't run mid-day without warning).
+- List archives: `sudo borg list /mnt/backup/borg-cluster`.
+
+### Restore (cold-backup)
+
+`/usr/local/bin/k3s-cold-restore.sh` does the full-host restore. Destructive: wipes live `/var/lib/rancher/k3s` + `/etc/rancher/k3s` before extract, prompts for `restore` confirmation.
+
+```sh
+sudo k3s-cold-restore.sh                      # interactive picker
+sudo k3s-cold-restore.sh latest               # most recent
+sudo k3s-cold-restore.sh cluster-2026-05-28   # specific archive
+```
+
+For a *single* PVC (e.g. one corrupted Postgres dir): scale the consumer to 0, `borg extract` only the `var/lib/rancher/k3s/storage/pvc-<uuid>` path to a scratch dir, rsync over, scale back up. Don't use the full restore script — it takes the whole cluster down.
+
+Inspect without extracting: `sudo borg mount /mnt/backup/borg-cluster::<archive> /mnt/x`.
 
 ## Careful with
 
