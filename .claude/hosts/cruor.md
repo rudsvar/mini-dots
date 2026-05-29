@@ -11,6 +11,7 @@
 - **GPU:** NVIDIA GeForce GTX 980 (Maxwell/sm_52). CUDA 13 dropped Maxwell — GPU uses **Vulkan** for ollama. Driver version: `pacman -Q nvidia`.
 - **Ollama:** Native systemd service (not Docker). Models at `/var/lib/ollama/`. Override: `/etc/systemd/system/ollama.service.d/override.conf`.
 - **Forgejo runner:** Plain compose at `~/services/forgejo/runner.yml` (`docker compose -f runner.yml up -d`), NOT a Swarm service. Reason: must be on `runner-net` bridge so its cache server is reachable from CI job containers.
+- **Image registry (Zot):** Swarm stack `registry` at `~/services/registry/` — `registry.cruor.rudsvar.xyz`, LAN-only, authenticated pull (`compat: docker2s2`, CVE scan, keep-5 retention). Replaced forgejo's built-in package registry (May 2026); forge/git/CI stay on forgejo. Storage on `/mnt/1tbhdd/registry/data`. `registry.yml` + `config.json` tracked in `~/.cruor`; `auth/` (htpasswd + push-password.txt) gitignored. Deploy: `docker stack deploy --prune --with-registry-auth -c registry.yml registry`.
 - **Backups:** `sanoid.timer` (ZFS snapshots) + `borgmatic.timer` (dumps + Hetzner storage box). Check schedules with `systemctl list-timers`. Borgmatic config: `/etc/borgmatic/config.yaml`; reference copy in `~/.config/borgmatic/`.
 - **Disk discipline:** Put container volumes, build caches, DB dumps, downloads on `/mnt/1tbhdd`, not `/`. `/mnt/1tbhdd` is ZFS — `zfs destroy` needs explicit go-ahead.
 - **Careful with:**
