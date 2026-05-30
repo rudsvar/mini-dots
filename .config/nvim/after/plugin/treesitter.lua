@@ -1,21 +1,17 @@
--- Tresitter config
-require'nvim-treesitter.config'.setup {
-  -- A list of parser names, or "all" (the four listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "rust", "java", "javascript", "typescript", "haskell" },
+-- Treesitter config (nvim-treesitter `main` branch API)
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+-- Install parsers (no-op if already installed; runs asynchronously)
+require('nvim-treesitter').install({
+    "c", "lua", "vim", "rust", "java", "javascript", "typescript", "haskell",
+})
 
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-}
-
+-- Enable treesitter highlighting per buffer. On the `main` branch highlighting
+-- is provided by Neovim core via vim.treesitter.start(), not by setup().
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args)
+        local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+        if lang and pcall(vim.treesitter.start, args.buf, lang) then
+            -- ok: parser present and highlighting started
+        end
+    end,
+})

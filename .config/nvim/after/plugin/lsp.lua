@@ -48,20 +48,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local opts = { buffer = bufnr, remap = false }
         vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", ']e', vim.diagnostic.goto_next)
-        vim.keymap.set("n", '[e', vim.diagnostic.goto_prev)
+        vim.keymap.set("n", ']e', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+        vim.keymap.set("n", '[e', function() vim.diagnostic.jump({ count = -1, float = true }) end)
         vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
     end
 })
 
--- Configure LSP handlers with borders
-vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
-    return vim.lsp.handlers.hover(err, result, ctx, vim.tbl_extend("force", config or {}, { border = "rounded" }))
-end
-
-vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
-    return vim.lsp.handlers.signature_help(err, result, ctx, vim.tbl_extend("force", config or {}, { border = "rounded" }))
-end
+-- Rounded borders for all floating windows (hover, signature help, etc.)
+vim.o.winborder = "rounded"
 
 -- Setup LSP servers
 vim.lsp.config("lua_ls", {
@@ -121,7 +115,7 @@ vim.diagnostic.config({
         focusable = false,
         style = 'minimal',
         border = 'rounded',
-        source = 'always',
+        source = true,
         header = '',
         prefix = '',
     },
