@@ -39,7 +39,7 @@ When unsure whether data is disposable: **stop and ask**. "Looked unused" is not
 
 ## Homelab overview
 
-All hosts behind Cloudflare tunnels (`cloudflared`) + Traefik where applicable; fail2ban on each. DNS `*.rudsvar.xyz` wildcarded through Cloudflare. LAN ad-blocking DNS: **AdGuard on cruor (192.168.10.126)**.
+Public-facing hosts (fumus, pi) sit behind Cloudflare tunnels (`cloudflared`) + Traefik; fail2ban on each. **cruor no longer runs a Cloudflare tunnel** (removed 2026-06-02) — its services are LAN-only: `*.cruor.rudsvar.xyz` are public A records pointing at the private LAN IP `192.168.10.126`, so they only resolve/route on the LAN. cruor keeps only `cloudflare-ddns` for Cloudflare. **Goal:** LAN services reachable from outside only via **WireGuard** (no public exposure). DNS `*.rudsvar.xyz` wildcarded through Cloudflare. LAN ad-blocking DNS: **AdGuard on cruor (192.168.10.126)**.
 
 | Host    | Role                              | OS             | SSH                          | SSHFS mount (from glacies) |
 |---------|-----------------------------------|----------------|------------------------------|----------------------------|
