@@ -15,6 +15,8 @@ When something in these files is **wrong, outdated, or surprising**, update it a
 
 Prefer **pointers to live sources of truth** over hardcoded values that decay — say "see `docker stack ls`" not "the running stacks are X, Y, Z". Hardcode only things that can't be derived: rationale, non-obvious config, host-specific quirks, the *why* behind a workaround.
 
+**Per-host changelog.** Each host repo (`~/.cruor`, `~/.glacies`, …) keeps a `CHANGELOG.md` at the work-tree root. For **significant** infra changes — services added/removed, auth or secrets changes, migrations, host config — add a short dated entry (newest first) as part of the same task. Keep entries terse; it's the human-readable counterpart to git log, not a replacement. Skip trivial tweaks.
+
 ## Data safety (hard rules)
 
 Never run these without an explicit, in-scope go-ahead from me for *this specific target*:
