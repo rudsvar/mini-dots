@@ -63,6 +63,14 @@ git --git-dir="$HOME/.cfg" --work-tree="$HOME" add -f <file>
 git --git-dir="$HOME/.cfg" --work-tree="$HOME" commit -m "message"
 ```
 
+**`~/.cfg` is shared and edited on multiple hosts** (e.g. glacies *and* cruor), so it drifts between machines. Before committing/pushing to it, **pull first** to pick up updates from elsewhere and avoid divergence:
+
+```sh
+git --git-dir="$HOME/.cfg" --work-tree="$HOME" pull --rebase
+```
+
+The machine-specific repos (`~/.cruor`, `~/.glacies`) are single-host, so this matters far less there.
+
 ## How to work with me
 
 - **Reading state is free:** `ls`, `df`, `docker ps`, `systemctl status`, `journalctl`, `git status/log/diff`, `ss`, `ps`. No need to ask.
